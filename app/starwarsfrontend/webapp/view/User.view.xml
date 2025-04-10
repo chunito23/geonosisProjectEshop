@@ -1,0 +1,20 @@
+<mvc:View
+    controllerName="starwarsfrontend.controller.User"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <Page
+        id="userPage"
+        title="Perfil de Usuario"
+    >
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Text id="emailUsuario" class="sapUiSmallMarginBottom"/>
+                <Button 
+                    text="Volver a la pantalla principal" 
+                    press=".onNavBack" 
+                    class="sapUiSmallMarginTop"/>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

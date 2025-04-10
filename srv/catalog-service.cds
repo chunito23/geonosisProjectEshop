@@ -12,8 +12,16 @@ service CatalogService {
   entity CartItems       as projection on starwars.CartItem;
 
 
-  action login(email : String, password : String)                                             returns Boolean;
-  action register(email : String, password : String)                                          returns Boolean;
+  action login(email : String, password : String)                                             returns {
+    success : Boolean;
+    userID : UUID;
+  };
+
+  action register(email : String, password : String)                                          returns {
+    success : Boolean;
+    userID : UUID;
+  };
+
   action addToCart(userID : UUID, productID : String, variantID : String, quantity : Integer) returns String;
   action clearCart(userID : UUID);
   action checkout(userID : UUID)                                                              returns String;
