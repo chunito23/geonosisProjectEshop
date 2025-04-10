@@ -1,0 +1,49 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="starwarsfrontend.controller.Master"
+>
+    <Page>
+        <VBox>
+            <SearchField
+                placeholder="Buscar categoría o subcategoría..."
+                liveChange=".onSearch"
+            />
+
+            <!-- Lista de categorías -->
+            <List
+                id="categoryList"
+                items="{
+                path: '/Categories',
+                sorter: { path: 'name' }
+            }"
+                headerText="Categorías"
+                mode="None"
+                itemPress=".onCategorySelect"
+            >
+                <CustomListItem>
+                    <VBox class="sapUiSmallMargin">
+                        <StandardListItem
+                            title="{name}"
+                            type="Navigation"
+                            press=".onCategorySelect"
+                        />
+
+                        <!-- Lista de subcategorías -->
+                        <List
+                            items="{subcategories}"
+                            mode="None"
+                            itemPress=".onSubcategorySelect"
+                            inset="true"
+                        >
+                            <StandardListItem
+                                title="{name}"
+                                type="Navigation"
+                            />
+                        </List>
+                    </VBox>
+                </CustomListItem>
+            </List>
+        </VBox>
+    </Page>
+</mvc:View>

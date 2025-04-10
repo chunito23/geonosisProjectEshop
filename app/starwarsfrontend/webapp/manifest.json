@@ -48,7 +48,9 @@
       "minUI5Version": "1.134.1",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.f" :{},
+        "sap.ui.layout" : {}
       }
     },
     "contentDensities": {
@@ -69,6 +71,7 @@
           "operationMode": "Server",
           "autoExpandSelect": true,
           "earlyRequests": true
+          
         }
       }
     },
@@ -82,37 +85,61 @@
     "routing": {
       "config": {
         "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
-        "type": "View",
         "viewType": "XML",
-        "path": "starwarsfrontend.view",
-        "async": true,
-        "viewPath": "starwarsfrontend.view"
+        "viewPath": "starwarsfrontend.view",
+        "controlId": "app",
+        "async": true
       },
       "routes": [
         {
-          "name": "RouteMain",
-          "pattern": ":?query:",
+          "pattern": "",
+          "name": "start",
           "target": [
-            "TargetMain"
+            "master",
+            "catalog"
           ]
         },
         {
-          "name": "User",
-          "pattern": "User",
-          "target": "User"
+          "pattern": "category/{categoryId}/sub/{subCategoryId}",
+          "name": "products",
+          "target": [
+            "master",
+            "products"
+          ]
+        },
+        {
+          "pattern": "category/{categoryId}/sub/{subCategoryId}/product/{productId}",
+          "name": "productDetail",
+          "target": [
+            "master",
+            "productDetail"
+          ]
         }
       ],
       "targets": {
-        "TargetMain": {
-          "id": "Main",
-          "name": "Main"
+        "master": {
+          "viewName": "Master",
+          "viewId": "master",
+          "controlAggregation": "masterPages",
+          "viewLevel": 1
         },
-        "User": {
-          "id": "User",
-          "name": "User"
+        "catalog": {
+          "viewName": "Catalog",
+          "viewId": "catalog",
+          "controlAggregation": "detailPages",
+          "viewLevel": 1
+        },
+        "products": {
+          "viewName": "Products",
+          "viewId": "products",
+          "controlAggregation": "detailPages",
+          "viewLevel": 2
+        },
+        "productDetail": {
+          "viewName": "ProductDetail",
+          "viewId": "productDetail",
+          "controlAggregation": "detailPages",
+          "viewLevel": 3
         }
       }
     },
