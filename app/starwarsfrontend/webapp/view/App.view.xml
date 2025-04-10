@@ -2,6 +2,5 @@
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <App id="app">
-    </App>
+    <SplitApp id="app"></SplitApp>
 </mvc:View>
