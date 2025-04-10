@@ -1,28 +1,49 @@
-<mvc:View controllerName="starwarsfrontend.controller.Main"
+<mvc:View
+    controllerName="starwarsfrontend.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+>
     <Page
         id="page"
         title="{i18n>title}"
     >
         <VBox class="sapUiSmallMargin">
-            <Input
-                placeholder="Ingrese su nombre"
-                value="{/name}"
-                width="100%"
+            <Title
+                text="Login / Register"
+                level="H2"
             />
 
-            <Button
-                text="Saludar"
-                press="onGreet"
-                type="Emphasized"
-                class="sapUiSmallMarginTop"
+            <Input
+                id="emailInput"
+                placeholder="Email"
+                type="Email"
             />
+            <Input
+                id="passwordInput"
+                placeholder="Password"
+                type="Password"
+            />
+
+            <HBox class="sapUiSmallMarginTop">
+                <Button
+                    text="Login"
+                    press=".onLogin"
+                    type="Emphasized"
+                />
+                <Button
+                    text="Register"
+                    press=".onRegister"
+                    class="sapUiSmallMarginBegin"
+                />
+            </HBox>
 
             <Text
-                text="{/greeting}"
+                id="statusText"
                 class="sapUiSmallMarginTop"
             />
         </VBox>
+        <List items="{/Users}">
+            <StandardListItem title="{email}" />
+        </List>
     </Page>
 </mvc:View>

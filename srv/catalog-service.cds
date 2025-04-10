@@ -11,14 +11,10 @@ service CatalogService {
   entity Carts           as projection on starwars.Cart;
   entity CartItems       as projection on starwars.CartItem;
 
-  type AuthResult : {
-    success : Boolean;
-  }
 
-  action login(email : String, password : String)                                             returns AuthResult;
-  action register(email : String, password : String)                                          returns AuthResult;
+  action login(email : String, password : String)                                             returns Boolean;
+  action register(email : String, password : String)                                          returns Boolean;
   action addToCart(userID : UUID, productID : String, variantID : String, quantity : Integer) returns String;
   action clearCart(userID : UUID);
   action checkout(userID : UUID)                                                              returns String;
-  action greet(name: String) returns String;
 }
