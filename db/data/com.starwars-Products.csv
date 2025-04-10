@@ -1,6 +1,6 @@
 id,name,price,currency,description,image,stock,rating,subcategory_id
 prod1,Luke Skywalker,79.99,USD,Figura de acción detallada de Luke Skywalker con múltiples puntos de movilidad y accesorios intercambiables.,assets/images/luke.webp,25,4.5,personajes
-prod2,Leia Organa,79.99,USD,Figura de acción de Leia Organa con detalle en vestuario y accesorios característicos.,assets/images/leia.png,30,4.7,personajes
+prod2,Leia Organa,79.99,USD,Figura de acción de Leia Organa con detalle en vestuario y accesorios característicos.,assets/images/leia.webp,30,4.7,personajes
 prod3,Darth Vader,99.99,USD,Figura imponente de Darth Vader con capa máscara articulada y espada de luz.,assets/images/darth_vader.png,20,4.8,villanos
 prod4,Kylo Ren,89.99,USD,Figura de acción de Kylo Ren con detalles en su casco y capa confeccionada con gran realismo.,assets/images/kylo_ren.png,15,4.3,villanos
 prod5,Sable de Luz de Luke Skywalker,199.99,USD,Réplica de sable de luz inspirada en el de Luke Skywalker ideal para exhibición o coleccionismo.,assets/images/sable_luke.png,10,4.6,sables-luz
