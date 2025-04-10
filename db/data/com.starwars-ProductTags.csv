@@ -1,0 +1,46 @@
+product_id,tag
+prod1,figura
+prod1,Luke
+prod1,Star Wars
+prod1,coleccionable
+prod2,figura
+prod2,Leia
+prod2,Star Wars
+prod2,coleccionable
+prod3,figura
+prod3,Vader
+prod3,villano
+prod3,Star Wars
+prod4,figura
+prod4,Kylo
+prod4,villano
+prod4,Star Wars
+prod5,sable
+prod5,Luke
+prod5,Star Wars
+prod5,réplica
+prod6,sable
+prod6,Vader
+prod6,Star Wars
+prod6,réplica
+prod7,poster
+prod7,arte
+prod7,Star Wars
+prod7,coleccionable
+prod8,poster
+prod8,Star Wars
+prod8,arte
+prod9,taza
+prod9,Star Wars
+prod9,accesorio
+prod10,llavero
+prod10,Star Wars
+prod10,accesorio
+prod11,modelo
+prod11,X-Wing
+prod11,Star Wars
+prod11,coleccionable
+prod12,modelo
+prod12,Destructor Estelar
+prod12,Star Wars
+prod12,coleccionable

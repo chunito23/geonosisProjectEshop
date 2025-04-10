@@ -1,0 +1,14 @@
+variantId,product_id,color,price,stock
+prod1-v1,prod1,Original,79.99,15
+prod1-v2,prod1,Limited Edition,99.99,10
+prod2-v1,prod2,Edición Clásica,79.99,20
+prod2-v2,prod2,Edición Fan,89.99,10
+prod3-v1,prod3,Negro clásico,99.99,12
+prod3-v2,prod3,Edición Especial,119.99,8
+prod4-v1,prod4,Estándar,89.99,10
+prod4-v2,prod4,Glow Edition,99.99,5
+prod5-v1,prod5,Verde,199.99,7
+prod5-v2,prod5,Dorado,219.99,3
+prod6-v1,prod6,Rojo,209.99,8
+prod9-v1,prod9,Blanco,14.99,70
+prod9-v2,prod9,Negro,15.99,30

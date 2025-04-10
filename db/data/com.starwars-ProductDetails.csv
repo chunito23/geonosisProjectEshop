@@ -1,0 +1,13 @@
+product_id,height,length,dimensions,capacity,material,manufacturer,weight,scale
+prod1,20 cm,,,,"PVC","Star Wars Collectibles","0.5 kg",
+prod2,20 cm,,,,"PVC","Star Wars Collectibles","0.45 kg",
+prod3,22 cm,,,,"PVC","Imperial Toys","0.55 kg",
+prod4,20 cm,,,,"PVC","Imperial Toys","0.5 kg",
+prod5,,90 cm,,,"Metal y plástico","Galactic Replicas","0.8 kg",
+prod6,,90 cm,,,"Metal reforzado y plástico","Galactic Replicas","0.85 kg",
+prod7,,,60x90 cm,,"Papel fotográfico","Star Art","0.3 kg",
+prod8,,,50x70 cm,,"Papel de alta calidad","Star Art","0.25 kg",
+prod9,,,,350 ml,"Cerámica","Galactic Mugs","0.4 kg",
+prod10,,,,,"Metal y plástico","Imperial Accessories",,
+prod11,,,,,Plástico de alta calidad,Starship Models,2 kg,1:72
+prod12,,,,,Plástico y metal,Starship Models,3.5 kg,1:144

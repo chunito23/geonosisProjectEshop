@@ -1,0 +1,28 @@
+<mvc:View controllerName="starwarsfrontend.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <VBox class="sapUiSmallMargin">
+            <Input
+                placeholder="Ingrese su nombre"
+                value="{/name}"
+                width="100%"
+            />
+
+            <Button
+                text="Saludar"
+                press="onGreet"
+                type="Emphasized"
+                class="sapUiSmallMarginTop"
+            />
+
+            <Text
+                text="{/greeting}"
+                class="sapUiSmallMarginTop"
+            />
+        </VBox>
+    </Page>
+</mvc:View>
