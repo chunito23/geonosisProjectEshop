@@ -8,8 +8,8 @@ sap.ui.define([
   
       onProductCardPress: function (oEvent) {
         const oContext = oEvent.getSource().getBindingContext();
-        const productName = oContext.getProperty("name");
-        MessageToast.show(`Ver detalles de "${productName}"`);
+        const ProductId = oContext.getProperty("id");
+        MessageToast.show(`Ver detalles de "${ProductId}"`);
         // Podés navegar a una vista de detalles usando el router acá
       },
   

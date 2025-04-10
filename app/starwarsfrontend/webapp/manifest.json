@@ -49,8 +49,8 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.f" :{},
-        "sap.ui.layout" : {}
+        "sap.f": {},
+        "sap.ui.layout": {}
       }
     },
     "contentDensities": {
@@ -68,10 +68,8 @@
         "dataSource": "mainService",
         "preload": true,
         "settings": {
-          "operationMode": "Server",
           "autoExpandSelect": true,
-          "earlyRequests": true
-          
+          "operationMode": "Server"
         }
       }
     },
@@ -100,16 +98,32 @@
           ]
         },
         {
-          "pattern": "category/{categoryId}/sub/{subCategoryId}",
-          "name": "products",
+          "pattern": "category",
+          "name": "CategoryList",
           "target": [
             "master",
-            "products"
+            "catalog"
+          ]
+        },
+        {
+          "pattern": "category/{categoryId}",
+          "name": "CategoryFiltered",
+          "target": [
+            "master",
+            "catalog"
+          ]
+        },
+        {
+          "pattern": "category/{categoryId}/sub/{subCategoryId}",
+          "name": "SubcategoryFiltered",
+          "target": [
+            "master",
+            "catalog"
           ]
         },
         {
           "pattern": "category/{categoryId}/sub/{subCategoryId}/product/{productId}",
-          "name": "productDetail",
+          "name": "ProductDetail",
           "target": [
             "master",
             "productDetail"
@@ -129,17 +143,11 @@
           "controlAggregation": "detailPages",
           "viewLevel": 1
         },
-        "products": {
-          "viewName": "Products",
-          "viewId": "products",
-          "controlAggregation": "detailPages",
-          "viewLevel": 2
-        },
         "productDetail": {
           "viewName": "ProductDetail",
           "viewId": "productDetail",
           "controlAggregation": "detailPages",
-          "viewLevel": 3
+          "viewLevel": 2
         }
       }
     },

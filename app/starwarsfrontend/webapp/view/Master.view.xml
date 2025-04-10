@@ -3,47 +3,44 @@
     xmlns="sap.m"
     controllerName="starwarsfrontend.controller.Master"
 >
-    <Page>
-        <VBox>
-            <SearchField
-                placeholder="Buscar categoría o subcategoría..."
-                liveChange=".onSearch"
-            />
-
-            <!-- Lista de categorías -->
-            <List
-                id="categoryList"
-                items="{
-                path: '/Categories',
-                sorter: { path: 'name' }
+    <Page title="Test Expand">
+        <List
+            items="{ 
+            path: '/Categories' , 
+            parameters: {expand : 'subcategories'}
             }"
-                headerText="Categorías"
-                mode="None"
-                itemPress=".onCategorySelect"
-            >
-                <CustomListItem>
-                    <VBox class="sapUiSmallMargin">
-                        <StandardListItem
-                            title="{name}"
-                            type="Navigation"
-                            press=".onCategorySelect"
-                        />
-
-                        <!-- Lista de subcategorías -->
-                        <List
-                            items="{subcategories}"
-                            mode="None"
-                            itemPress=".onSubcategorySelect"
-                            inset="true"
-                        >
-                            <StandardListItem
-                                title="{name}"
-                                type="Navigation"
-                            />
-                        </List>
-                    </VBox>
-                </CustomListItem>
-            </List>
-        </VBox>
+        >
+            <CustomListItem>
+            <Text text="{id}"></Text>
+                <List items= "{ path: 'subcategories' , parameters:{expand:'category'}}">
+                    <CustomListItem press="onItemPress" type="Active">
+                        <VBox>
+                            <Text text="{id}" />
+                            <Text text="{name}" />
+                            <Text text="{category/id}" />
+                        </VBox>
+                    </CustomListItem>
+                </List>
+            </CustomListItem>
+        </List>
     </Page>
 </mvc:View>
+<!-- <List
+            id="subcatList"
+            headerText="Test Expand"
+            items="{
+                path: '/Subcategories',
+                parameters: {
+                    expand: 'category'
+                }
+            }"
+        >
+            <items>
+                <StandardListItem
+                    type="Active"
+                    press="onItemPress"
+                    title="{name}"
+                    description="{category/name}"
+                />
+            </items>
+        </List> -->
