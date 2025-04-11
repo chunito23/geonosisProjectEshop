@@ -1,30 +1,45 @@
 <mvc:View
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
-    controllerName="starwarsfrontend.controller.Master"
->
-    <Page title="Test Expand">
-        <List
-            items="{ 
-            path: '/Categories' , 
-            parameters: {expand : 'subcategories'}
-            }"
-        >
-            <CustomListItem>
-            <Text text="{id}"></Text>
-                <List items= "{ path: 'subcategories' , parameters:{expand:'category'}}">
-                    <CustomListItem press="onItemPress" type="Active">
-                        <VBox>
-                            <Text text="{id}" />
-                            <Text text="{name}" />
-                            <Text text="{category/id}" />
-                        </VBox>
-                    </CustomListItem>
-                </List>
-            </CustomListItem>
-        </List>
-    </Page>
+  controllerName="starwarsfrontend.controller.Master"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  displayBlock="true">
+
+  <Page title="Catálogo">
+
+    <VBox class="sapUiMediumMargin">
+      <!-- Lista de Categorías -->
+      <List
+        id="categoriesList"
+        headerText="Categorías"
+        items="{
+          path: '/Categories',
+          parameters: { expand: 'subcategories' }
+        }"
+        mode="SingleSelectMaster"
+        itemPress="onCategorySelect">
+
+        <StandardListItem type="Active" title="{name}" />
+      </List>
+
+      <!-- Lista de Subcategorías -->
+      <List
+        id="subcategoryList"
+        headerText="Subcategorías"
+        items="{ path : '/Subcategories' ,parameters : {expand:'category'}}"
+        visible="true"
+        mode="SingleSelectMaster"
+        itemPress="onSubcategorySelect">
+
+        <StandardListItem type="Active" title="{name}" />
+      </List>
+    </VBox>
+
+  </Page>
 </mvc:View>
+
+
+
+
 <!-- <List
             id="subcatList"
             headerText="Test Expand"

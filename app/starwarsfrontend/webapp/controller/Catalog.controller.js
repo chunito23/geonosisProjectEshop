@@ -1,10 +1,45 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
     "sap/m/MessageToast"
-  ], function (Controller, MessageToast) {
+  ], function (BaseController, MessageToast) {
     "use strict";
   
-    return Controller.extend("starwarsfrontend.controller.Catalog", {
+    return BaseController.extend("starwarsfrontend.controller.Catalog", {
+      onInit: function () {
+        const oRouter = this.getRouter();
+      
+        oRouter.getRoute("CategoryList").attachPatternMatched(this._onRouteMatched, this);
+        oRouter.getRoute("CategoryFiltered").attachPatternMatched(this._onRouteMatched, this);
+        oRouter.getRoute("SubcategoryFiltered").attachPatternMatched(this._onRouteMatched, this);
+      },
+      
+      _onRouteMatched: function (oEvent) {
+        const args = oEvent.getParameter("arguments");
+        const categoryId = args.categoryId;
+        const subCategoryId = args.subCategoryId;
+      
+        const oView = this.getView();
+        const oList = oView.byId("categoryList"); // id que ahora te paso
+      
+        const oBinding = oList.getBinding("items");
+        if (!oBinding) return;
+      
+        if (categoryId && subCategoryId) {
+          // Filtrar categoría y subcategoría
+          oBinding.filter([
+            new sap.ui.model.Filter("id", sap.ui.model.FilterOperator.EQ, categoryId),
+            new sap.ui.model.Filter("id", sap.ui.model.FilterOperator.EQ, subCategoryId)
+          ]);
+        } else if (categoryId) {
+          // Filtrar solo categoría
+          oBinding.filter([
+            new sap.ui.model.Filter("id", sap.ui.model.FilterOperator.EQ, categoryId)
+          ]);
+        } else {
+          // Mostrar todas las categorías
+          oBinding.filter([]);
+        }
+      },
   
       onProductCardPress: function (oEvent) {
         const oContext = oEvent.getSource().getBindingContext();

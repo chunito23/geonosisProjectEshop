@@ -9,13 +9,13 @@
     <customHeader>
       <Bar>
         <contentMiddle>
-          <Title text="Catálogo de Productos" level="H1" titleStyle="H1" />
+          <Title text="Catálogo de Productos" level="H2" titleStyle="H2" />
         </contentMiddle>
       </Bar>
     </customHeader>
     
     <content>
-      <List items="{/Categories}">
+      <List id="categoryList" items="{/Categories}">
         <CustomListItem>
           <VBox class="sapUiSmallMargin categoryContainer">
             <Title text="{name}" level="H2" class="categoryTitle" />

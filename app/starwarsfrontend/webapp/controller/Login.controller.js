@@ -4,7 +4,7 @@ sap.ui.define([
 ], (Controller, MessageToast) => {
   "use strict";
 
-  return Controller.extend("starwarsfrontend.controller.Main", {
+  return Controller.extend("starwarsfrontend.controller.Login", {
     onInit: function () {
 
     },
@@ -36,7 +36,7 @@ sap.ui.define([
             this.getOwnerComponent().setModel(userModel, "userInfo");
 
             // Navegar a la página principal
-            this.getRouter().navTo("User");
+            this.getRouter().navTo("CategoryList");
           } else {
             this.byId("statusText").setText("El usuario ya existe");
           }
@@ -71,7 +71,7 @@ sap.ui.define([
             this.getOwnerComponent().setModel(userModel, "userInfo");
 
             // Navegar a la página principal
-            this.getRouter().navTo("User");
+            this.getRouter().navTo("CategoryList");
           } else {
             this.byId("statusText").setText("Credenciales incorrectas");
           }

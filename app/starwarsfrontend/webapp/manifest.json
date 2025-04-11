@@ -93,8 +93,8 @@
           "pattern": "",
           "name": "start",
           "target": [
-            "master",
-            "catalog"
+            "User",
+            "Login"
           ]
         },
         {
@@ -148,6 +148,14 @@
           "viewId": "productDetail",
           "controlAggregation": "detailPages",
           "viewLevel": 2
+        },
+        "User": {
+          "viewName": "User",
+          "controlAggregation": "masterPages"
+        },
+        "Login": {
+          "viewName": "Login",
+          "controlAggregation": "detailPages"
         }
       }
     },

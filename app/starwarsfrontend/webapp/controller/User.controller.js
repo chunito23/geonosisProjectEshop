@@ -6,7 +6,7 @@ sap.ui.define([
     return BaseController.extend("starwarsfrontend.controller.User", {
         onInit: function(){
             // Obtener el router
-            this.getOwnerComponent().getRouter().getRoute("User").attachPatternMatched(this._onRouteMatched, this);
+            this.getOwnerComponent().getRouter().getRoute("start").attachPatternMatched(this._onRouteMatched, this);
         },
 
         _onRouteMatched: function() {

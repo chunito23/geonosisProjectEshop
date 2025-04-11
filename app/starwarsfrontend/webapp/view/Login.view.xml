@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="starwarsfrontend.controller.Main"
+    controllerName="starwarsfrontend.controller.Login"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
 >
