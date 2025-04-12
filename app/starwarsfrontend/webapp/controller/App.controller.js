@@ -4,7 +4,14 @@ sap.ui.define([
   "use strict";
 
   return BaseController.extend("starwarsfrontend.controller.App", {
-      onInit() {
-      }
+    onInit() {
+      const texto = this.byId("textoUsuario")
+      const savedUserId = sessionStorage.getItem("userID");
+
+      texto.setText(savedUserId)
+
+
+
+    }
   });
 });

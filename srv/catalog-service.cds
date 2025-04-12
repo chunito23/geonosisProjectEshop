@@ -24,9 +24,9 @@ service CatalogService {
     userID : UUID;
   };
 
-  action addFavorite(userID : UUID);
-  action addToCartItem(userID : UUID, productID : String);
-  action DeleteToCartItem(userID : UUID, productID : String);
-  action clearCart(userID : UUID);
-  action BuyCart(userID : UUID)                      
+  action addFavorite(userId: UUID, productId: String) returns String;
+  action addToCartItem(userId : UUID, productId : String);
+  action DeleteToCartItem(userId : UUID, productId : String);
+  action clearCart(userId : UUID);
+  action BuyCart(userId : UUID)                      
 }

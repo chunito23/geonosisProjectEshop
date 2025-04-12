@@ -72,13 +72,39 @@ sap.ui.define([
       // Aquí implementarías la lógica para añadir al carrito
     },
 
-    onBuyNow: function (oEvent) {
-      const oContext = oEvent.getSource().getParent().getParent().getBindingContext();
-      const productName = oContext.getProperty("name");
-      MessageToast.show(`Comprando "${productName}" ahora`);
-      
-      // Aquí implementarías la lógica para comprar ahora
+    onAddFavorite: function (oEvent) {
+      const oContext = oEvent.getSource().getBindingContext();
+      const productID = oContext.getProperty("id");
+      const userID = sessionStorage.getItem("userID");
+    
+      // Depuración
+      console.log("Frontend - userID:", userID);
+      console.log("Frontend - productID:", productID);
+    
+      if (!userID || !productID) {
+        MessageToast.show("Error: userID o productID no están definidos");
+        return;
+      }
+    
+      const oModel = this.getOwnerComponent().getModel();
+    
+      oModel.callFunction("/addFavorite", {
+        method: "POST",
+        urlParameters: {
+          userId: userID,     
+          productId: productID 
+        },
+        success: (oData) => {
+          console.log("Respuesta del backend:", oData);
+          MessageToast.show(oData.value || "Producto añadido a favoritos");
+        },
+        error: (err) => {
+          console.error("Error al añadir favorito:", err);
+          MessageToast.show("Error al añadir a favoritos");
+        }
+      });
     },
+      
     
     onViewCart: function() {
       // Navegar a la vista del carrito (definir esta ruta en manifest.json)

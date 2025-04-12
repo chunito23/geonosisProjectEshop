@@ -134,11 +134,11 @@
                                     class="actionButton"
                                 />
                                 <Button
-                                    text="Comprar"
+                                    text="Favorito"
                                     type="Emphasized"
-                                    icon="sap-icon://credit-card"
+                                    icon="sap-icon://add-favorite"
                                     enabled="{= ${stock} > 0}"
-                                    press="onBuyNow"
+                                    press="onAddFavorite"
                                     class="actionButton"
                                 />
                             </HBox>

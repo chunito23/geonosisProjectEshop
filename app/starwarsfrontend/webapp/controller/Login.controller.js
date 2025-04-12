@@ -6,6 +6,7 @@ sap.ui.define([
 
   return Controller.extend("starwarsfrontend.controller.Login", {
     onInit: function () {
+      sessionStorage.removeItem("userID");
 
     },
 
@@ -32,6 +33,8 @@ sap.ui.define([
               userID: userID,
               isLoggedIn: true
             });
+
+            sessionStorage.setItem("userID", userID);
 
             this.getOwnerComponent().setModel(userModel, "userInfo");
 
@@ -69,6 +72,8 @@ sap.ui.define([
             });
 
             this.getOwnerComponent().setModel(userModel, "userInfo");
+
+            sessionStorage.setItem("userID", userID);
 
             // Navegar a la página principal
             this.getRouter().navTo("CategoryList");
