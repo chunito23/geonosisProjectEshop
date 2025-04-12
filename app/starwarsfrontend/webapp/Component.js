@@ -19,6 +19,8 @@ sap.ui.define([
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 
+            
+
             // // Leer sesión del sessionStorage
             // const savedUserId = sessionStorage.getItem("userID");
 

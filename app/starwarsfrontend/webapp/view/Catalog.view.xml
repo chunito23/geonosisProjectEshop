@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
     controllerName="starwarsfrontend.controller.Catalog"
 >
-    <Page title="Catálogo de Productos">
+    <Page title="Catálogo de Productos" showNavButton="true" navButtonPress="onNavBack">
         <content>
             <!-- Contenedor principal de productos -->
             <FlexBox

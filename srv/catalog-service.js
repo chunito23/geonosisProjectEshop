@@ -1,19 +1,19 @@
 const cds = require('@sap/cds')
 
 module.exports = cds.service.impl(async function () {
-  // Para depuración, vamos a imprimir las entidades disponibles
+  //imprimir las entidades disponibles
   console.log("Entidades disponibles:", Object.keys(this.entities));
 
+  //genera ids
   function generateUUID() {
     return cds.utils.uuid();
   }
 
   this.on('register', async req => {
-    const { Users, Carts } = this.entities  // Cambiado a Users y Carts (plural)
+    const { Users, Carts } = this.entities
     const { email, password } = req.data
 
     const existe = await SELECT.one.from(Users).where({ email })
-    console.log(existe)
     if (existe) {
       return { success: false, userID: null }
     }
@@ -26,17 +26,16 @@ module.exports = cds.service.impl(async function () {
       password
     })
 
-    const cartID = generateUUID()
-    await INSERT.into(Carts).entries({  // Cambiado a Carts (plural)
-      id: cartID,
-      user_id: userID  // Ajusta esto según el nombre real del campo en tu base de datos
+    await INSERT.into(Carts).entries({
+      id: generateUUID(),
+      user_id: userID
     })
 
     return { success: true, userID: userID }
   })
 
   this.on('login', async (req) => {
-    const { Users } = this.entities  // Cambiado a Users (plural)
+    const { Users } = this.entities
     const { email, password } = req.data;
 
     const user = await SELECT.one.from(Users).where({ email });
@@ -53,9 +52,6 @@ module.exports = cds.service.impl(async function () {
   this.on('addFavorite', async (req) => {
     const { Users, Products, FavItems } = this.entities;
     const { userId, productId } = req.data;
-
-    console.log("user id back: ", userId);
-    console.log("product id back: ", productId);
 
     const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
     if (!usuarioExistente) {
@@ -86,10 +82,8 @@ module.exports = cds.service.impl(async function () {
   });
 
   this.on('getUserFavorites', async (req) => {
-    const { FavItems, Products } = this.entities;
+    const { FavItems } = this.entities;
     const { userId } = req.data;
-
-    console.log("Backend - getUserFavorites - userId:", userId);
 
     if (!userId) {
       return req.error(400, "Parámetro userId es requerido");
@@ -112,14 +106,136 @@ module.exports = cds.service.impl(async function () {
         ])
     );
 
-    console.log("favorios: ", favorites)
-
-
     if (!favorites || favorites.length === 0) {
       return []; // Retorna un arreglo vacío si no hay favoritos
     }
 
     return favorites;
   });
+
+  this.on("addToCartItem", async (req) => {
+    const { Users, Products, Carts, CartItems } = this.entities
+    const { userId, productId } = req.data
+
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoExistente = await SELECT.one.from(Products).where({ id: productId });
+    if (!productoExistente) {
+      return req.error(404, `Producto con ID ${productId} no encontrado.`);
+    }
+
+    const carritoExistente = await SELECT.one.from(Carts).where({
+      user_id: userId
+    })
+    if (!carritoExistente) {
+      return req.error(404, `Carrito para el usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoEnCarritoExiste = await SELECT.one.from(CartItems).where({
+      cart_id: carritoExistente.id,
+      product_id: productoExistente.id
+    })
+
+    if (productoEnCarritoExiste) {
+      await UPDATE(CartItems).set({ quantity: productoEnCarritoExiste.quantity + 1 }).where({
+        id: productoEnCarritoExiste.id
+      })
+      return "cantidad incrementada"
+    } else {
+      await INSERT.into(CartItems).entries({
+        id : generateUUID(),
+        cart_id : carritoExistente.id,
+        product_id : productoExistente.id,
+        quantity : 1
+      })
+    }
+    return "producto agregado"
+  })
+
+  this.on("getUserCart", async (req) => {
+    const { Users, Carts, CartItems } = this.entities
+    const { userId } = req.data
+
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const carritoExistente = await SELECT.one.from(Carts).where({
+      user_id: userId
+    })
+    if (!carritoExistente) {
+      return req.error(404, `Carrito para el usuario con ID ${userId} no encontrado.`);
+    }
+
+    const itemsCarrito = await cds.run(
+      SELECT.from(CartItems)
+        .where({ cart_id : carritoExistente.id })
+        .columns([
+          { ref: ['id'] },
+          {
+            ref: ['product'],
+            expand: [
+              { ref: ['id'] },
+              { ref: ['name'] },
+              { ref: ['image'] },
+              { ref: ['price'] }
+            ]
+          }
+        ])
+    );
+
+    if (itemsCarrito){
+      return itemsCarrito
+    }else{
+      return []
+    }
+
+  })
+
+  this.on("DeleteToCartItem", async (req) => {
+    const { Users, Products, Carts, CartItems } = this.entities
+    const { userId, productId } = req.data
+
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoExistente = await SELECT.one.from(Products).where({ id: productId });
+    if (!productoExistente) {
+      return req.error(404, `Producto con ID ${productId} no encontrado.`);
+    }
+
+    const carritoExistente = await SELECT.one.from(Carts).where({
+      user_id: userId
+    })
+    if (!carritoExistente) {
+      return req.error(404, `Carrito para el usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoEnCarritoExiste = await SELECT.one.from(CartItems).where({
+      cart_id: carritoExistente.id,
+      product_id: productoExistente.id
+    })
+
+    if (productoEnCarritoExiste) {
+      if(productId.quantity > 1){
+        await UPDATE(CartItems).set({ quantity: productoEnCarritoExiste.quantity - 1 }).where({
+          id: productoEnCarritoExiste.id
+        })
+        return "cantidad derecrementada"
+      }else{
+        await DELETE(CartItems).where({
+          id: productoEnCarritoExiste.id
+        })
+        return "producto eliminado"
+      }
+    }
+    return "ERROR AL ELIMIANR EORWOL"
+  })
 
 })

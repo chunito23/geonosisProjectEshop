@@ -65,11 +65,36 @@ sap.ui.define([
     },
 
     onAddToCart: function (oEvent) {
-      const oContext = oEvent.getSource().getParent().getParent().getBindingContext();
-      const productName = oContext.getProperty("name");
-      MessageToast.show(`"${productName}" añadido al carrito`);
-      
-      // Aquí implementarías la lógica para añadir al carrito
+      const oContext = oEvent.getSource().getBindingContext();
+      const productID = oContext.getProperty("id");
+      const userID = sessionStorage.getItem("userID");
+    
+      // Depuración
+      console.log("Frontend - userID:", userID);
+      console.log("Frontend - productID:", productID);
+    
+      if (!userID || !productID) {
+        MessageToast.show("Error: userID o productID no están definidos");
+        return;
+      }
+    
+      const oModel = this.getOwnerComponent().getModel();
+    
+      oModel.callFunction("/addToCartItem", {
+        method: "POST",
+        urlParameters: {
+          userId: userID,     
+          productId: productID 
+        },
+        success: (oData) => {
+          console.log("Respuesta del backend:", oData);
+          MessageToast.show(oData.value || "Producto añadido al carrito");
+        },
+        error: (err) => {
+          console.error("Error al añadir al carrito:", err);
+          MessageToast.show("Error al añadir al carrito");
+        }
+      });
     },
 
     onAddFavorite: function (oEvent) {

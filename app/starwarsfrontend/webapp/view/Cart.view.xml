@@ -21,6 +21,22 @@
                     icon="{favorites>product/image}"
                 />
             </List>
+            <Text text="carrito"></Text>
+            <List
+                id = "cartItemsList"
+                headerText="Tu carrito"
+                items="{
+                    path: 'cartItems>/'
+                }"
+            >
+                <CustomListItem >
+                <Text text="{cartItems>product/name}"></Text>
+                <Text text="{cartItems>product/id}"></Text>
+                <Image src="{cartItems>product/image}"></Image>
+                <Button text="x" press="onDeleteCartItem"></Button>
+                    
+                </CustomListItem>
+            </List>
         </content>
     </Page>
 </mvc:View>
