@@ -17,6 +17,10 @@ sap.ui.define([
             oRouter.navTo("CategoryFiltered",{categoryId:catId})
         },
 
+        onShowCatalog:function(){
+            this.getRouter().navTo("CategoryList")
+          },
+
 
         onSubcategorySelect: function (oEvent) {
             const oItem = oEvent.getParameter("listItem");

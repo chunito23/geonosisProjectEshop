@@ -8,6 +8,7 @@
 
     <VBox class="sapUiMediumMargin">
       <!-- Lista de Categorías -->
+      <Button text="todos los items" press="onShowCatalog"></Button>
       <List
         id="categoriesList"
         headerText="Categorías"

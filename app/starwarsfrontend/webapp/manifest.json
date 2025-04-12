@@ -123,7 +123,7 @@
         },
         {
           "pattern": "category/{categoryId}/sub/{subCategoryId}/product/{productId}",
-          "name": "ProductDetail",
+          "name": "productView",
           "target": [
             "master",
             "productDetail"
@@ -145,7 +145,6 @@
         },
         "productDetail": {
           "viewName": "ProductDetail",
-          "viewId": "productDetail",
           "controlAggregation": "detailPages",
           "viewLevel": 2
         },

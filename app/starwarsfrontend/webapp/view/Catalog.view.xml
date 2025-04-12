@@ -1,132 +1,164 @@
 <mvc:View
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns="sap.m"
-  xmlns:core="sap.ui.core"
-  xmlns:l="sap.ui.layout"
-  controllerName="starwarsfrontend.controller.Catalog">
-
-  <Page title="Catálogo">
-    <customHeader>
-      <Bar>
-        <contentMiddle>
-          <Title text="Catálogo de Productos" level="H2" titleStyle="H2" />
-        </contentMiddle>
-      </Bar>
-    </customHeader>
-    
-    <content>
-      <List id="categoryList" items="{/Categories}">
-        <CustomListItem>
-          <VBox class="sapUiSmallMargin categoryContainer">
-            <Title text="{name}" level="H2" class="categoryTitle" />
-
-            <List items="{subcategories}">
-              <CustomListItem>
-                <VBox class="sapUiTinyMargin subcategoryContainer">
-                  <Title text="{name}" level="H3" class="subcategoryTitle" />
-
-                  <!-- FlexBox con tarjetas de productos mejoradas -->
-                  <FlexBox wrap="Wrap" items="{products}" class="sapUiTinyMarginTop productsContainer">
-
-                    <!-- Tarjeta de producto usando un panel interactivo -->
-                    <Panel 
-                      width="280px" 
-                      class="sapUiSmallMargin productCard" 
-                      expandable="false">
-                      
-                      <!-- Cabecera personalizada -->
-                      <headerToolbar>
-                        <Toolbar class="productHeader" height="auto" press="onProductCardPress">
-                          <HBox width="100%" alignItems="Center" justifyContent="SpaceBetween">
-                            <HBox alignItems="Center">
-                              <core:Icon 
-                                src="{= ${stock} > 0 ? 'sap-icon://product' : 'sap-icon://alert'}" 
-                                size="1.5rem" 
-                                color="{= ${stock} > 0 ? '#1873b4' : '#d32f2f'}" 
-                                class="productIcon" />
-                              <VBox class="sapUiTinyMarginBegin">
-                                <Title text="{name}" level="H4" wrapping="true" class="productTitle" />
-                                <Text text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : 'Agotado'}" class="productSubtitle" />
-                              </VBox>
-                            </HBox>
-                            <RatingIndicator 
-                              value="{= ${stock} > 0 ? Math.min(Math.max(Math.floor(${stock}/20), 1), 5) : 0}"
-                              editable="false"
-                              visualMode="Half"
-                              class="stockIndicator" />
-                          </HBox>
-                        </Toolbar>
-                      </headerToolbar>
-                      
-                      <content>
-                        <!-- Imagen del producto corregida -->
-                        <VBox height="180px" class="productImageContainer">
-                          <!-- Usando Image con configuración simplificada -->
-                          <Image
-                            src="{image}"
-                            width="100%"
-                            densityAware="false"
-                            mode="Image"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    controllerName="starwarsfrontend.controller.Catalog"
+>
+    <Page title="Catálogo de Productos">
+        <content>
+            <!-- Contenedor principal de productos -->
+            <FlexBox
+                id="productsContainer"
+                wrap="Wrap"
+                class="sapUiTinyMargin"
+                items="{
+                  path: '/Products',
+                  parameters: {
+                    expand: 'subcategory,subcategory/category'
+                  },
+                  sorter: {
+                    path: 'subcategory/category/name',
+                    descending: false
+                  }
+                }"
+            >
+                <!-- Tarjeta de producto -->
+                <Panel
+                    width="280px"
+                    class="sapUiSmallMargin productCard"
+                    expandable="false"
+                >
+                    <!-- Cabecera personalizada -->
+                    <headerToolbar>
+                        <Toolbar
+                            class="productHeader"
+                            height="auto"
                             press="onProductCardPress"
-                            class="productImage" />
+                        >
+                            <HBox
+                                width="100%"
+                                alignItems="Center"
+                                justifyContent="SpaceBetween"
+                            >
+                                <HBox alignItems="Center">
+                                    <core:Icon
+                                        src="{= ${stock} > 0 ? 'sap-icon://product' : 'sap-icon://alert'}"
+                                        size="1.5rem"
+                                        color="{= ${stock} > 0 ? '#1873b4' : '#d32f2f'}"
+                                        class="productIcon"
+                                    />
+                                    <VBox class="sapUiTinyMarginBegin">
+                                        <Title
+                                            text="{name}"
+                                            level="H4"
+                                            wrapping="true"
+                                            class="productTitle"
+                                        />
+                                        <Text
+                                            text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : 'Agotado'}"
+                                            class="productSubtitle"
+                                        />
+                                    </VBox>
+                                </HBox>
+                                <RatingIndicator
+                                    value="{= ${stock} > 0 ? Math.min(Math.max(Math.floor(${stock}/20), 1), 5) : 0}"
+                                    editable="false"
+                                    visualMode="Half"
+                                    class="stockIndicator"
+                                />
+                            </HBox>
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <content>
+                        <!-- Imagen del producto -->
+                        <VBox
+                            height="180px"
+                            class="productImageContainer"
+                        >
+                            <Image
+                                src="{image}"
+                                width="100%"
+                                densityAware="false"
+                                mode="Image"
+                                press="onProductCardPress"
+                                class="productImage"
+                            />
                         </VBox>
-                          
+
                         <!-- Detalles del producto -->
                         <VBox class="sapUiSmallPadding productDetails">
-                          <HBox justifyContent="SpaceBetween" alignItems="Center">
-                            <ObjectNumber 
-                              number="{price}" 
-                              unit="{currency}" 
-                              class="productPrice" />
-                              
-                            <ObjectStatus 
-                              text="{= ${stock} > 0 ? 'Disponible' : 'Agotado'}" 
-                              state="{= ${stock} > 0 ? 'Success' : 'Error'}" />
-                          </HBox>
-                          
-                          <!-- Descripción breve -->
-                          <Text text="{description}" maxLines="2" class="sapUiTinyMarginTop productDescription" />
-                          
-                          <!-- Botones de acción -->
-                          <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop">
-                            <Button
-                              text="Añadir"
-                              type="Default"
-                              icon="sap-icon://cart-3"
-                              enabled="{= ${stock} > 0}"
-                              press="onAddToCart"
-                              class="actionButton" />
-                            <Button
-                              text="Comprar"
-                              type="Emphasized"
-                              icon="sap-icon://credit-card"
-                              enabled="{= ${stock} > 0}"
-                              press="onBuyNow"
-                              class="actionButton" />
-                          </HBox>
+                            <HBox
+                                justifyContent="SpaceBetween"
+                                alignItems="Center"
+                            >
+                                <ObjectNumber
+                                    number="{price}"
+                                    unit="{currency}"
+                                    class="productPrice"
+                                />
+
+                                <ObjectStatus
+                                    text="{= ${stock} > 0 ? 'Disponible' : 'Agotado'}"
+                                    state="{= ${stock} > 0 ? 'Success' : 'Error'}"
+                                />
+                            </HBox>
+
+                            <!-- Categoría y subcategoría -->
+                            <HBox class="sapUiTinyMarginTop">
+                                <Text
+                                    text="{subcategory/category/name} > {subcategory/name}"
+                                    class="categoryPath"
+                                />
+                            </HBox>
+
+                            <!-- Descripción breve -->
+                            <Text
+                                text="{description}"
+                                maxLines="2"
+                                class="sapUiTinyMarginTop productDescription"
+                            />
+
+                            <!-- Botones de acción -->
+                            <HBox
+                                justifyContent="SpaceBetween"
+                                class="sapUiSmallMarginTop"
+                            >
+                                <Button
+                                    text="Añadir"
+                                    type="Default"
+                                    icon="sap-icon://cart-3"
+                                    enabled="{= ${stock} > 0}"
+                                    press="onAddToCart"
+                                    class="actionButton"
+                                />
+                                <Button
+                                    text="Comprar"
+                                    type="Emphasized"
+                                    icon="sap-icon://credit-card"
+                                    enabled="{= ${stock} > 0}"
+                                    press="onBuyNow"
+                                    class="actionButton"
+                                />
+                            </HBox>
                         </VBox>
-                      </content>
-                    </Panel>
-                  </FlexBox>
+                    </content>
+                </Panel>
+            </FlexBox>
+        </content>
 
-                </VBox>
-              </CustomListItem>
-            </List>
-          </VBox>
-        </CustomListItem>
-      </List>
-    </content>
-
-    <footer>
-      <Bar>
-        <contentRight>
-          <Button 
-            icon="sap-icon://cart" 
-            text="Ver Carrito" 
-            type="Emphasized" 
-            press="onViewCart" />
-        </contentRight>
-      </Bar>
-    </footer>
-  </Page>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button
+                        icon="sap-icon://cart"
+                        text="Ver Carrito"
+                        type="Emphasized"
+                        press="onViewCart"
+                    />
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
 </mvc:View>
