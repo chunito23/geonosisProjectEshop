@@ -15,7 +15,7 @@ sap.ui.define([
         init() {
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
-            sessionStorage.removeItem("userID");
+            //sessionStorage.removeItem("userID");
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 

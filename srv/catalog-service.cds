@@ -14,19 +14,20 @@ service CatalogService {
   entity PurchasedItems  as projection on starwars.PurchasedItem;
 
 
-  action login(email : String, password : String)    returns {
+  action login(email : String, password : String)       returns {
     success : Boolean;
     userID : UUID;
   };
 
-  action register(email : String, password : String) returns {
+  action register(email : String, password : String)    returns {
     success : Boolean;
     userID : UUID;
   };
 
-  action addFavorite(userId: UUID, productId: String) returns String;
+  action addFavorite(userId : UUID, productId : String) returns String;
   action addToCartItem(userId : UUID, productId : String);
   action DeleteToCartItem(userId : UUID, productId : String);
   action clearCart(userId : UUID);
-  action BuyCart(userId : UUID)                      
+  action BuyCart(userId : UUID);
+  action getUserFavorites(userId : UUID)                returns array of FavItems;
 }

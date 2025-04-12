@@ -17,11 +17,7 @@ sap.ui.define([
         },
 
         getUserID: function() {
-            const userModel = this.getOwnerComponent().getModel("userInfo");
-            if (userModel) {
-                return userModel.getProperty("/userID");
-            }
-            return null;
+           return sessionStorage.getItem("userID") || null;
         }
     });
 });

@@ -104,6 +104,8 @@ sap.ui.define([
         }
       });
     },
+
+    
       
     
     onViewCart: function() {

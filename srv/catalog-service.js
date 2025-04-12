@@ -53,36 +53,73 @@ module.exports = cds.service.impl(async function () {
   this.on('addFavorite', async (req) => {
     const { Users, Products, FavItems } = this.entities;
     const { userId, productId } = req.data;
-  
+
     console.log("user id back: ", userId);
     console.log("product id back: ", productId);
-  
+
     const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
     if (!usuarioExistente) {
       return req.error(404, `Usuario con ID ${userId} no encontrado.`);
     }
-  
+
     const productoExistente = await SELECT.one.from(Products).where({ id: productId });
     if (!productoExistente) {
       return req.error(404, `Producto con ID ${productId} no encontrado.`);
     }
-  
+
     const favoritoExistente = await SELECT.one.from(FavItems).where({
       product_id: productId,
       user_id: userId
     });
-  
+
     if (favoritoExistente) {
       return 'El producto ya estaba en favoritos.';
     }
-  
+
     await INSERT.into(FavItems).entries({
       id: generateUUID(),
       product_id: productId,
       user_id: userId
     });
-  
+
     return "insertado con éxito";
   });
-  
+
+  this.on('getUserFavorites', async (req) => {
+    const { FavItems, Products } = this.entities;
+    const { userId } = req.data;
+
+    console.log("Backend - getUserFavorites - userId:", userId);
+
+    if (!userId) {
+      return req.error(400, "Parámetro userId es requerido");
+    }
+    // Consulta para obtener los ítems favoritos con detalles del producto
+    const favorites = await cds.run(
+      SELECT.from(FavItems)
+        .where({ user_id: userId })
+        .columns([
+          { ref: ['id'] },
+          {
+            ref: ['product'],
+            expand: [
+              { ref: ['id'] },
+              { ref: ['name'] },
+              { ref: ['image'] },
+              { ref: ['price'] }
+            ]
+          }
+        ])
+    );
+
+    console.log("favorios: ", favorites)
+
+
+    if (!favorites || favorites.length === 0) {
+      return []; // Retorna un arreglo vacío si no hay favoritos
+    }
+
+    return favorites;
+  });
+
 })

@@ -1,0 +1,26 @@
+<mvc:View
+    controllerName="starwarsfrontend.controller.Cart"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <Page
+        title="Mis Favoritos"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <content>
+            <List
+                headerText="Tus favoritos"
+                items="{
+                    path: 'favorites>/'
+                }"
+            >
+                <StandardListItem
+                    title="{favorites>product/name}"
+                    description="{= 'Precio: $' + ${favorites>product/price} }"
+                    icon="{favorites>product/image}"
+                />
+            </List>
+        </content>
+    </Page>
+</mvc:View>

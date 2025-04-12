@@ -1,0 +1,51 @@
+sap.ui.define([
+    "./BaseController",
+    "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel"
+], (BaseController,MessageToast,JSONModel) => {
+    "use strict";
+
+    return BaseController.extend("starwarsfrontend.controller.Cart", {
+        onInit() {
+            const oRouter = this.getRouter();
+            oRouter.getRoute("Cart").attachPatternMatched(this._onRouteMatched, this);
+        },
+
+        _onRouteMatched: function () {
+            const userId = sessionStorage.getItem("userID");
+
+            if (!userId) {
+                MessageToast.show("Por favor, inicia sesión para ver tus favoritos");
+                this.getRouter().navTo("start");
+                return;
+            }
+
+            this._loadFavorites(userId);
+        },
+
+        _loadFavorites: function (userId) {
+            const oModel = this.getOwnerComponent().getModel();
+
+            oModel.callFunction("/getUserFavorites", {
+                method: "POST",
+                urlParameters: {
+                    userId: userId
+                },
+                success: (oData) => {
+                    console.log("Favoritos recibidos:", oData.results);
+
+                    // Crear modelo JSON para la vista
+                    const oFavoritesModel = new JSONModel(oData.results || []);
+                    this.getView().setModel(oFavoritesModel, "favorites");
+
+
+                },
+                error: (err) => {
+                    console.error("Error al cargar favoritos:", err);
+                    MessageToast.show("Error al cargar favoritos");
+                }
+            });
+        },
+
+    });
+});
