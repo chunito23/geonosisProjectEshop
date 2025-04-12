@@ -10,19 +10,23 @@ service CatalogService {
   entity Users           as projection on starwars.User;
   entity Carts           as projection on starwars.Cart;
   entity CartItems       as projection on starwars.CartItem;
+  entity FavItems        as projection on starwars.FavItem;
+  entity PurchasedItems  as projection on starwars.PurchasedItem;
 
 
-  action login(email : String, password : String)                                             returns {
+  action login(email : String, password : String)    returns {
     success : Boolean;
     userID : UUID;
   };
 
-  action register(email : String, password : String)                                          returns {
+  action register(email : String, password : String) returns {
     success : Boolean;
     userID : UUID;
   };
 
-  action addToCart(userID : UUID, productID : String, variantID : String, quantity : Integer) returns String;
+  action addFavorite(userID : UUID);
+  action addToCartItem(userID : UUID, productID : String);
+  action DeleteToCartItem(userID : UUID, productID : String);
   action clearCart(userID : UUID);
-  action checkout(userID : UUID)                                                              returns String;
+  action BuyCart(userID : UUID)                      
 }

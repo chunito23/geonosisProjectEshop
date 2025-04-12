@@ -59,24 +59,43 @@ entity ProductVariants {
 }
 
 entity User {
-  key id       : UUID;
-      email    : String;
-      password : String; // solo para pruebas
-      name     : String;
-      cart     : Association to one Cart on cart.user = $self;
+  key id        : UUID;
+      email     : String;
+      password  : String; // solo para pruebas
+      name      : String;
+      cart      : Association to one Cart
+                    on cart.user = $self;
+      favorites : Association to many FavItem
+                    on favorites.user = $self;
+      purchases : Association to many PurchasedItem
+                    on purchases.user = $self;
 }
 
 entity Cart {
   key id    : UUID;
       user  : Association to one User;
-      items : Composition of many CartItem on items.cart = $self;
+      items : Composition of many CartItem
+                on items.cart = $self;
 }
 
 entity CartItem {
   key id       : UUID;
       cart     : Association to one Cart;
       product  : Association to one Products;
-      variant  : Association to one ProductVariants;
+      //variant  : Association to one ProductVariants; //me genera problemas de inconsistencia
       quantity : Integer;
-      addedAt  : Timestamp;
+}
+
+entity FavItem {
+  key id       : UUID;
+      user     : Association to one User;
+      product  : Association to one Products;
+      quantity : Integer;
+}
+
+entity PurchasedItem {
+  key id       : UUID;
+      user     : Association to one User;
+      product  : Association to one Products;
+      quantity : Integer;
 }
