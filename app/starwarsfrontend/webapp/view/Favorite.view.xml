@@ -1,0 +1,25 @@
+<mvc:View
+    controllerName="starwarsfrontend.controller.Favorite"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page
+        title="Mis Favoritos"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <List
+                headerText="Tus Productos Favoritos"
+                items="{ path: 'favorites>/' }"
+                noDataText="No tienes productos favoritos">
+                <items>
+                    <StandardListItem
+                        title="{favorites>product/name}"
+                        description="{= 'Precio: $' + ${favorites>product/price} }"
+                        icon="{favorites>product/image}"
+                        iconDensityAware="false" />
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

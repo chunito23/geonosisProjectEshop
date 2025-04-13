@@ -41,11 +41,11 @@ sap.ui.define([
             // Navegar a la página principal
             this.getRouter().navTo("CategoryList");
           } else {
-            this.byId("statusText").setText("El usuario ya existe");
+            MessageToast.show("el usuario ya existe");
           }
         },
         error: (err) => {
-          sap.m.MessageToast.show("Error en registro");
+          MessageToast.show("Error en registro");
           console.error(err);
         }
       });
@@ -78,11 +78,11 @@ sap.ui.define([
             // Navegar a la página principal
             this.getRouter().navTo("CategoryList");
           } else {
-            this.byId("statusText").setText("Credenciales incorrectas");
+            MessageToast.show("credenciales incorrectas");
           }
         },
         error: (err) => {
-          sap.m.MessageToast.show("Error de inicio de sesión");
+          MessageToast.show("Error de inicio de sesión");
           console.error(err);
         }
       });

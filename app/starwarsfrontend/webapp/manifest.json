@@ -136,6 +136,21 @@
             "User",
             "Cart"
           ]
+        },
+        {
+          "pattern": "PurchaseHistory",
+          "name": "PurchaseHistory",
+          "target": [
+            "User",
+            "PurchaseHistory"
+          ]
+        },{
+          "pattern": "Favorite",
+          "name": "Favorite",
+          "target": [
+            "User",
+            "Favorite"
+          ]
         }
       ],
       "targets": {
@@ -166,6 +181,14 @@
         },
         "Cart": {
           "viewName": "Cart",
+          "controlAggregation": "detailPages"
+        },
+        "PurchaseHistory": {
+          "viewName": "PurchaseHistory",
+          "controlAggregation": "detailPages"
+        },
+        "Favorite": {
+          "viewName": "Favorite",
           "controlAggregation": "detailPages"
         }
       }

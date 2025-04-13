@@ -5,45 +5,55 @@
 >
     <Page
         id="page"
-        title="{i18n>title}"
+        title="Bienvenido a la eShop"
+        backgroundDesign="Solid"
     >
-        <VBox class="sapUiSmallMargin">
-            <Title
-                text="Login / Register"
-                level="H2"
-            />
+        <content>
+            <VBox 
+                class="sapUiMediumMargin"
+                alignItems="Center"
+                height="35rem"
+                justifyContent="Center"
+            >
+                <Panel
+                    headerText="Login / Registro"
+                    class="sapUiResponsiveMargin"
+                    width="500px"
+                    expandable="false"
+                >
+                    <VBox class="sapUiContentPadding" alignItems="Stretch">
+                        <Label text="Email"></Label>
+                        <Input
+                            id="emailInput"
+                            placeholder="Email"
+                            type="Email"
+                            width="100%"
+                        />
+                        <Label text="Contraseña"></Label>
+                        <Input
+                            id="passwordInput"
+                            placeholder="Contraseña"
+                            type="Password"
+                            width="100%"
+                            class="sapUiSmallMarginTop"
+                        />
 
-            <Input
-                id="emailInput"
-                placeholder="Email"
-                type="Email"
-            />
-            <Input
-                id="passwordInput"
-                placeholder="Password"
-                type="Password"
-            />
-
-            <HBox class="sapUiSmallMarginTop">
-                <Button
-                    text="Login"
-                    press=".onLogin"
-                    type="Emphasized"
-                />
-                <Button
-                    text="Register"
-                    press=".onRegister"
-                    class="sapUiSmallMarginBegin"
-                />
-            </HBox>
-
-            <Text
-                id="statusText"
-                class="sapUiSmallMarginTop"
-            />
-        </VBox>
-        <List items="{/Users}">
-            <StandardListItem title="{email}" />
-        </List>
+                        <HBox class="sapUiSmallMarginTop" justifyContent="SpaceAround">
+                            <Button
+                                text="Iniciar Sesión"
+                                press=".onLogin"
+                                type="Emphasized"
+                                width="100%"
+                            />
+                            <Button
+                                text="Registrarse"
+                                press=".onRegister"
+                                width="100%"
+                            />
+                        </HBox>
+                    </VBox>
+                </Panel>
+            </VBox>
+        </content>
     </Page>
 </mvc:View>

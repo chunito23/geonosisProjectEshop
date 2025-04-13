@@ -1,0 +1,25 @@
+<mvc:View
+    controllerName="starwarsfrontend.controller.PurchaseHistory"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page
+        title="Historial de Compras"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <List
+                headerText="Tus Compras"
+                items="{ path: 'purchases>/' }"
+                noDataText="No tienes compras registradas">
+                <items>
+                    <StandardListItem
+                        title="{purchases>product/name}"
+                        description="{= 'Precio: $' + ${purchases>product/price} }"
+                        icon="{purchases>product/image}"
+                        iconDensityAware="false" />
+                </items>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

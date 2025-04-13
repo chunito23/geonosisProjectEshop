@@ -8,17 +8,64 @@
         title="Perfil de Usuario"
     >
         <content>
-            <VBox class="sapUiSmallMargin">
-                <Text id="emailUsuario" class="sapUiSmallMarginBottom"/>
-                <Button 
-                    text="Volver a la pantalla principal" 
-                    press=".onNavBack" 
-                    class="sapUiSmallMarginTop"/>
+            <!-- Contenedor protegido -->
+            <VBox id="authContent">
+                <FlexBox
+                    direction="Column"
+                    justifyContent="Center"
+                    alignItems="Center"
+                    width="100%"
+                    class="sapUiSmallMarginEnd"
+                >
+                    <Panel
+                        headerText="Menú de acceso rápido"
+                        expandable="false"
+                        class="sapUiTinyMargin"
+                    >
+                        <List>
+                            <StandardListItem
+                                title="Perfil"
+                                type="Active"
+                                press=".onPressProfile"
+                                icon="sap-icon://employee"
+                            />
+                            <StandardListItem
+                                title="Catálogo"
+                                type="Active"
+                                press=".onPressCatalog"
+                                icon="sap-icon://contacts"
+                            />
+                            <StandardListItem
+                                title="Compras"
+                                type="Active"
+                                press=".onPressCart"
+                                icon="sap-icon://cart"
+                            />
+                            <StandardListItem
+                                title="Favoritos"
+                                type="Active"
+                                press=".onPressFavorites"
+                                icon="sap-icon://favorite"
+                            />
+                            <StandardListItem
+                                title="Historial"
+                                type="Active"
+                                press=".onPressHistory"
+                                icon="sap-icon://history"
+                            />
+                        </List>
+                    </Panel>
+                </FlexBox>
             </VBox>
 
-            <VBox >
-                <Text text="items favoritos"></Text>
-                <!-- <List items = "{/favoritos}"></List> -->
+            <!-- Contenedor de acceso denegado -->
+            <VBox id="unauthContent" class="sapUiMediumMargin" alignItems="Center" justifyContent="Center">
+                <MessageStrip
+                    text="Debes iniciar sesión para ver tu perfil."
+                    type="Warning"
+                    showIcon="true"
+                />
+
             </VBox>
         </content>
     </Page>

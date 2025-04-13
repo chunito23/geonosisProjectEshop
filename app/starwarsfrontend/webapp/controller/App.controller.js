@@ -5,12 +5,6 @@ sap.ui.define([
 
   return BaseController.extend("starwarsfrontend.controller.App", {
     onInit() {
-      const texto = this.byId("textoUsuario")
-      const savedUserId = sessionStorage.getItem("userID");
-
-      texto.setText(savedUserId)
-
-
 
     }
   });
