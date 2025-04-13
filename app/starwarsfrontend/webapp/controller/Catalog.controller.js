@@ -13,7 +13,27 @@ sap.ui.define([
       oRouter.getRoute("CategoryList").attachPatternMatched(this._onCategoryRouteMatched, this);
       oRouter.getRoute("CategoryFiltered").attachPatternMatched(this._onCategoryRouteMatched, this);
       oRouter.getRoute("SubcategoryFiltered").attachPatternMatched(this._onSubcategoryRouteMatched, this);
+      this.oEventBus = sap.ui.getCore().getEventBus()
+      this.oEventBus.subscribe("masterChanel","SearchRequest",this.onSearchRequested,this)
     },
+
+    onSearchRequested: function(sChannel, sEvent, oData) {
+      var sQuery = oData.searchQuery;
+      var oTable = this.byId("productsContainer"); // Reemplaza por el ID de tu tabla
+      var oBinding = oTable.getBinding("items");
+      
+      if (sQuery && sQuery.length > 0) {
+          // Crea un filtro para buscar en el nombre del producto (ajusta según tu modelo)
+          var aFilters = [
+              new Filter("name", FilterOperator.Contains, sQuery)
+          ];
+          oBinding.filter(aFilters);
+      } else {
+          // Si no hay query, quita todos los filtros
+          oBinding.filter([]);
+      }
+      
+  },
     
     _onCategoryRouteMatched: function (oEvent) {
       const args = oEvent.getParameter("arguments");

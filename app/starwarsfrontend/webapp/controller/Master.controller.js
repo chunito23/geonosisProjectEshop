@@ -6,6 +6,15 @@ sap.ui.define([
     return BaseController.extend("starwarsfrontend.controller.Master", {
         onInit: function () {
             // Si querés capturar rutas, lo hacés acá (no necesario por ahora)
+            this.oEventBus = sap.ui.getCore().getEventBus()
+        },
+
+        onSearchRequested: function(oEvent){
+            const sQuery = oEvent.getParameter("query")
+
+            this.oEventBus.publish("masterChanel","SearchRequest",{
+                searchQuery : sQuery
+            })
         },
 
         onCategorySelect: function (oEvent) {
@@ -18,7 +27,10 @@ sap.ui.define([
         },
 
         onShowCatalog:function(){
-            this.getRouter().navTo("CategoryList")
+            //pensar en cambiar por que me parece una tactica muy sucia para filtrar
+            this.oEventBus.publish("masterChanel","SearchRequest",{
+                searchQuery : ""
+            })
           },
 
 
