@@ -42,7 +42,32 @@ sap.ui.define([
             
             const oRouter = this.getRouter()
             oRouter.navTo("SubcategoryFiltered",{categoryId:catId,subCategoryId:subcatId})
-        }
+        },
 
+        onPressHistory: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("PurchaseHistory")
+        },
+
+        onPressFavorites: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("Favorite")
+        },
+
+        onPressCart: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("Cart")
+        },
+
+        onPressCatalog: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("CategoryList")
+        },
+
+        onPressProfile: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("start")
+
+        },
     });
 });

@@ -26,9 +26,10 @@ service CatalogService {
 
   action addFavorite(userId : UUID, productId : String) returns String;
   action addToCartItem(userId : UUID, productId : String) returns String;
-  action DeleteToCartItem(userId : UUID, productId : String) returns String;
+  action deleteToCartItem(userId : UUID, productId : String) returns String;
   action clearCart(userId : UUID);
-  action BuyCart(userId : UUID);
+  action buyCart(userId : UUID);
   action getUserFavorites(userId : UUID)                returns array of FavItems;
   action getUserCart(userId : UUID)                returns array of CartItems;
+  action decreaseToCartItem(userId : UUID, productId : String) returns String;
 }

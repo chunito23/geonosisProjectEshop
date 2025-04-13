@@ -8,7 +8,7 @@ sap.ui.define([
     return BaseController.extend("starwarsfrontend.controller.Favorite", {
         onInit() {
             const oRouter = this.getRouter();
-            oRouter.getRoute("Favorites").attachPatternMatched(this._onRouteMatched, this);
+            oRouter.getRoute("Favorite").attachPatternMatched(this._onRouteMatched, this);
         },
 
         _onRouteMatched: function () {

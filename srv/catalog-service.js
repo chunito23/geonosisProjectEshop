@@ -146,10 +146,10 @@ module.exports = cds.service.impl(async function () {
       return "cantidad incrementada"
     } else {
       await INSERT.into(CartItems).entries({
-        id : generateUUID(),
-        cart_id : carritoExistente.id,
-        product_id : productoExistente.id,
-        quantity : 1
+        id: generateUUID(),
+        cart_id: carritoExistente.id,
+        product_id: productoExistente.id,
+        quantity: 1
       })
     }
     return "producto agregado"
@@ -173,9 +173,10 @@ module.exports = cds.service.impl(async function () {
 
     const itemsCarrito = await cds.run(
       SELECT.from(CartItems)
-        .where({ cart_id : carritoExistente.id })
+        .where({ cart_id: carritoExistente.id })
         .columns([
           { ref: ['id'] },
+          { ref: ['quantity'] },
           {
             ref: ['product'],
             expand: [
@@ -188,15 +189,15 @@ module.exports = cds.service.impl(async function () {
         ])
     );
 
-    if (itemsCarrito){
+    if (itemsCarrito) {
       return itemsCarrito
-    }else{
+    } else {
       return []
     }
 
   })
 
-  this.on("DeleteToCartItem", async (req) => {
+  this.on("decreaseToCartItem", async (req) => {
     const { Users, Products, Carts, CartItems } = this.entities
     const { userId, productId } = req.data
 
@@ -223,12 +224,12 @@ module.exports = cds.service.impl(async function () {
     })
 
     if (productoEnCarritoExiste) {
-      if(productId.quantity > 1){
+      if (productoEnCarritoExiste.quantity > 1) {
         await UPDATE(CartItems).set({ quantity: productoEnCarritoExiste.quantity - 1 }).where({
           id: productoEnCarritoExiste.id
         })
         return "cantidad derecrementada"
-      }else{
+      } else {
         await DELETE(CartItems).where({
           id: productoEnCarritoExiste.id
         })
@@ -236,6 +237,41 @@ module.exports = cds.service.impl(async function () {
       }
     }
     return "ERROR AL ELIMIANR EORWOL"
+  })
+
+  this.on("deleteToCartItem", async (req) => {
+    const { Users, Products, Carts, CartItems } = this.entities
+    const { userId, productId } = req.data
+
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoExistente = await SELECT.one.from(Products).where({ id: productId });
+    if (!productoExistente) {
+      return req.error(404, `Producto con ID ${productId} no encontrado.`);
+    }
+
+    const carritoExistente = await SELECT.one.from(Carts).where({
+      user_id: userId
+    })
+    if (!carritoExistente) {
+      return req.error(404, `Carrito para el usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoEnCarritoExiste = await SELECT.one.from(CartItems).where({
+      cart_id: carritoExistente.id,
+      product_id: productoExistente.id
+    })
+
+    if (productoEnCarritoExiste) {
+      await DELETE(CartItems).where({
+        id: productoEnCarritoExiste.id
+      })
+      return "producto eliminado"
+    }
+
   })
 
 })

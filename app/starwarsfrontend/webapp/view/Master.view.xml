@@ -5,11 +5,58 @@
   displayBlock="true">
 
   <Page title="Catálogo">
-
     <VBox class="sapUiMediumMargin">
+
+     <!-- Barra de búsqueda -->
+      <SearchField
+        id="SearchBar"
+        search="onSearchRequested"
+        class="sapUiSmallMarginTop" />
+
+
+      <!-- Menú lateral de acceso rápido -->
+      <VBox id="authContent2">
+        <FlexBox
+          direction="Column"
+          justifyContent="Center"
+          alignItems="Center"
+          class="sapUiSmallMarginEnd">
+          <Panel
+            headerText="Menú de acceso rápido"
+            expandable="false"
+            class="sapUiTinyMargin">
+            <List>
+              <StandardListItem
+                title="Perfil"
+                type="Active"
+                press=".onPressProfile"
+                icon="sap-icon://employee" />
+              <StandardListItem
+                title="Catálogo"
+                type="Active"
+                press=".onPressCatalog"
+                icon="sap-icon://contacts" />
+              <StandardListItem
+                title="Compras"
+                type="Active"
+                press=".onPressCart"
+                icon="sap-icon://cart" />
+              <StandardListItem
+                title="Favoritos"
+                type="Active"
+                press=".onPressFavorites"
+                icon="sap-icon://favorite" />
+              <StandardListItem
+                title="Historial"
+                type="Active"
+                press=".onPressHistory"
+                icon="sap-icon://history" />
+            </List>
+          </Panel>
+        </FlexBox>
+      </VBox>
+
       <!-- Lista de Categorías -->
-      <SearchField id="SearchBar" search="onSearchRequested"></SearchField>
-      <Button text="todos los items" press="onShowCatalog"></Button>
       <List
         id="categoriesList"
         headerText="Categorías"
@@ -18,8 +65,8 @@
           parameters: { expand: 'subcategories' }
         }"
         mode="SingleSelectMaster"
-        itemPress="onCategorySelect">
-
+        itemPress="onCategorySelect"
+        class="sapUiSmallMarginTop">
         <StandardListItem type="Active" title="{name}" />
       </List>
 
@@ -27,17 +74,21 @@
       <List
         id="subcategoryList"
         headerText="Subcategorías"
-        items="{ path : '/Subcategories' ,parameters : {expand:'category'}}"
+        items="{
+          path: '/Subcategories',
+          parameters: { expand: 'category' }
+        }"
         visible="true"
         mode="SingleSelectMaster"
-        itemPress="onSubcategorySelect">
-
+        itemPress="onSubcategorySelect"
+        class="sapUiSmallMarginTop">
         <StandardListItem type="Active" title="{name}" />
       </List>
-    </VBox>
 
+    </VBox>
   </Page>
 </mvc:View>
+
 
 
 

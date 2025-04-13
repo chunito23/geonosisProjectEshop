@@ -2,29 +2,164 @@
     controllerName="starwarsfrontend.controller.Cart"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.f"
 >
     <Page
-        title="Mis Favoritos"
+        title="Mi Carrito"
         showNavButton="true"
         navButtonPress=".onNavBack"
+        class="cartPage"
     >
         <content>
-            <Text text="carrito"></Text>
-            <List
-                id = "cartItemsList"
-                headerText="Tu carrito"
-                items="{
-                    path: 'cartItems>/'
-                }"
-            >
-                <CustomListItem >
-                <Text text="{cartItems>product/name}"></Text>
-                <Text text="{cartItems>product/id}"></Text>
-                <Image src="{cartItems>product/image}"></Image>
-                <Button text="x" press="onDeleteCartItem"></Button>
-                    
-                </CustomListItem>
-            </List>
+            <VBox class="sapUiMediumMargin">
+                <!-- Título principal con icono -->
+                <HBox alignItems="Center" class="sapUiMediumMarginBottom">
+                    <core:Icon src="sap-icon://cart" size="2rem" color="#1a9898" class="sapUiSmallMarginEnd"/>
+                    <Title text="Tu carrito de compras" level="H2"/>
+                </HBox>
+                
+                <!-- Lista de productos en el carrito -->
+                <List
+                    id="cartItemsList"
+                    noDataText="Tu carrito está vacío"
+                    items="{
+                        path: 'cartItems>/'
+                    }"
+                    class="cartItemsList"
+                >
+                    <CustomListItem type="Inactive" class="cartItem">
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMargin">
+                            <!-- Imagen y detalles del producto -->
+                            <HBox alignItems="Center">
+                                <Image 
+                                    src="{cartItems>product/image}" 
+                                    width="5rem" 
+                                    height="5rem"
+                                    class="sapUiSmallMarginEnd productThumbnail"
+                                />
+                                <VBox>
+                                    <Link 
+                                        text="{cartItems>product/name}" 
+                                        press=".onNavigateToProduct" 
+                                        class="productName"
+                                    />
+                                    <Text text="ID: {cartItems>product/id}" class="sapUiTinyMarginTop productId"/>
+                                    
+                                    <!-- Controles de cantidad -->
+                                    <HBox alignItems="Center" class="sapUiTinyMarginTop quantityControls">
+                                        <Button 
+                                            icon="sap-icon://less" 
+                                            press=".onDecreaseQuantity" 
+                                            class="quantityButton"
+                                            tooltip="Disminuir cantidad"
+                                        />
+                                        <Input 
+                                            value="{cartItems>quantity}" 
+                                            type="Number" 
+                                            width="4rem"
+                                            change=".onQuantityChange"
+                                            class="quantityInput"
+                                        />
+                                        <Button 
+                                            icon="sap-icon://add" 
+                                            press=".onIncreaseQuantity" 
+                                            class="quantityButton"
+                                            tooltip="Aumentar cantidad"
+                                        />
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                            
+                            <!-- Precio y botón de eliminar -->
+                            <HBox alignItems="End">
+                                <ObjectNumber
+                                    number="{= (${cartItems>product/price} * ${cartItems>quantity}).toFixed(2) }"
+                                    unit="USD"
+                                    class="productPrice"
+                                />
+                                <Button 
+                                    icon="sap-icon://delete" 
+                                    text="Eliminar" 
+                                    press=".onDeleteCartItem"
+                                    type="Transparent"
+                                    class="sapUiTinyMarginTop deleteButton"
+                                />
+                            </HBox>
+                        </HBox>
+                    </CustomListItem>
+                </List>
+                
+                <!-- Resumen del carrito y total -->
+                <Panel
+                    expandable="false"
+                    class="sapUiMediumMarginTop cartSummary"
+                    visible="{= ${cartItems>/}.length > 0 }"
+                >
+                    <VBox class="sapUiSmallMargin">
+                        <HBox justifyContent="SpaceBetween">
+                            <Text text="Subtotal:" class="summaryLabel"/>
+                            <Text text="{cartModel>/subtotal} {cartModel>/currency}" class="summaryValue"/>
+                        </HBox>
+                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+                            <Text text="Impuestos:" class="summaryLabel"/>
+                            <Text text="{cartModel>/taxes} {cartModel>/currency}" class="summaryValue"/>
+                        </HBox>
+                        <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+                            <Text text="Envío:" class="summaryLabel"/>
+                            <Text text="{cartModel>/shipping} {cartModel>/currency}" class="summaryValue"/>
+                        </HBox>
+                        <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop totalRow">
+                            <Title text="Total:" level="H4" class="totalLabel"/>
+                            <Title text="{cartModel>/total} {cartModel>/currency}" level="H4" class="totalValue"/>
+                        </HBox>
+                    </VBox>
+                </Panel>
+                
+                <!-- Botones de acción -->
+                <HBox 
+                    justifyContent="SpaceBetween" 
+                    class="sapUiMediumMarginTop buttonContainer"
+                    visible="{= ${cartItems>/}.length > 0 }"
+                >
+                    <Button 
+                        text="Seguir comprando" 
+                        press=".onContinueShopping"
+                        class="continueButton"
+                    />
+                    <Button 
+                        text="Proceder a la compra" 
+                        press=".onCheckout"
+                        type="Emphasized"
+                        icon="sap-icon://credit-card"
+                        class="checkoutButton"
+                    />
+                </HBox>
+                
+                <!-- Recomendaciones cuando el carrito está vacío -->
+                <VBox 
+                    class="sapUiMediumMarginTop emptyCartSection"
+                    visible="{= ${cartItems>/}.length === 0 }"
+                >
+                    <Title text="¿No sabes qué comprar?" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text text="Explora nuestras recomendaciones:" class="sapUiTinyMarginBottom"/>
+                    <Button 
+                        text="Ver productos recomendados" 
+                        press=".onViewRecommendations"
+                        type="Emphasized"
+                        icon="sap-icon://product"
+                        class="sapUiSmallMarginBottom recommendationsButton"
+                    />
+                </VBox>
+            </VBox>
         </content>
+        
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Text text="{= ${cartItems>/}.length} productos en tu carrito" class="cartCounter"/>
+                <ToolbarSpacer/>
+            </Toolbar>
+        </footer>
     </Page>
 </mvc:View>
