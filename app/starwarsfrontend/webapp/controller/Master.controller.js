@@ -1,12 +1,20 @@
 sap.ui.define([
-    "./BaseController"
-], function (BaseController) {
+    "./BaseController",
+    "sap/m/MessageBox"
+], function (BaseController,MessageBox) {
     "use strict";
 
     return BaseController.extend("starwarsfrontend.controller.Master", {
         onInit: function () {
             // Si querés capturar rutas, lo hacés acá (no necesario por ahora)
             this.oEventBus = sap.ui.getCore().getEventBus()
+            const oRouter = this.getOwnerComponent().getRouter();
+            oRouter.getRoute("start").attachPatternMatched(this._onRouteMatched, this);
+            
+        },
+
+        _onRouteMatched: function(){
+            sessionStorage.getItem("userID")
         },
 
         onSearchRequested: function(oEvent){
@@ -66,8 +74,14 @@ sap.ui.define([
 
         onPressProfile: function(){
             let oRouter = this.getOwnerComponent().getRouter()
-            oRouter.navTo("start")
+            oRouter.navTo("userProfile")
 
         },
+
+        onLogOut: function(){
+            sessionStorage.removeItem("userID")
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("start")
+        }
     });
 });

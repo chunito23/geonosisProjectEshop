@@ -147,18 +147,5 @@
                 </Panel>
             </FlexBox>
         </content>
-
-        <footer>
-            <Bar>
-                <contentRight>
-                    <Button
-                        icon="sap-icon://cart"
-                        text="Ver Carrito"
-                        type="Emphasized"
-                        press="onViewCart"
-                    />
-                </contentRight>
-            </Bar>
-        </footer>
     </Page>
 </mvc:View>

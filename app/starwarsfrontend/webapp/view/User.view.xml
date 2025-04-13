@@ -9,15 +9,7 @@
     >
         <content>
             
-            <!-- Contenedor de acceso denegado -->
-            <VBox id="unauthContent" class="sapUiMediumMargin" alignItems="Center" justifyContent="Center">
-                <MessageStrip
-                    text="Debes iniciar sesión para ver tu perfil."
-                    type="Warning"
-                    showIcon="true"
-                />
-
-            </VBox>
+            <Text text="pagina de usuario"></Text>
         </content>
     </Page>
 </mvc:View>

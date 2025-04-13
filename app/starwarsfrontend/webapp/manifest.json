@@ -93,8 +93,15 @@
           "pattern": "",
           "name": "start",
           "target": [
-            "User",
+            "master",
             "Login"
+          ]
+        },{
+          "pattern": "userProfile",
+          "name": "userProfile",
+          "target": [
+            "master",
+            "User"
           ]
         },
         {
@@ -133,7 +140,7 @@
           "pattern": "Cart",
           "name": "Cart",
           "target": [
-            "User",
+            "master",
             "Cart"
           ]
         },
@@ -141,14 +148,14 @@
           "pattern": "PurchaseHistory",
           "name": "PurchaseHistory",
           "target": [
-            "User",
+            "master",
             "PurchaseHistory"
           ]
         },{
           "pattern": "Favorite",
           "name": "Favorite",
           "target": [
-            "User",
+            "master",
             "Favorite"
           ]
         }
@@ -173,7 +180,7 @@
         },
         "User": {
           "viewName": "User",
-          "controlAggregation": "masterPages"
+          "controlAggregation": "detailPages"
         },
         "Login": {
           "viewName": "Login",

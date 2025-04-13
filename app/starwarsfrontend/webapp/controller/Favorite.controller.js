@@ -13,13 +13,6 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             const userId = sessionStorage.getItem("userID");
-
-            if (!userId) {
-                MessageToast.show("Por favor, inicia sesión para ver tus favoritos");
-                this.getRouter().navTo("start");
-                return;
-            }
-
             this._loadFavorites(userId);
         },
 

@@ -5,9 +5,14 @@ sap.ui.define([
   "use strict";
 
   return Controller.extend("starwarsfrontend.controller.Login", {
-    onInit: function () {
-      sessionStorage.removeItem("userID");
+    onInit: function () { //el onit solo anda al principio
+      const oRouter = this.getRouter()
+      oRouter.getRoute("start").attachPatternMatched(this._onCategoryRouteMatched, this);
 
+    },
+
+    _onCategoryRouteMatched: function(){
+      sessionStorage.removeItem("userID")
     },
 
     getRouter: function () {
