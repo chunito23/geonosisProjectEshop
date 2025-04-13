@@ -1,10 +1,155 @@
 <mvc:View
+  controllerName="starwarsfrontend.controller.ProductDetail"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
+  xmlns:core="sap.ui.core">
 
-  controllerName="starwarsfrontend.controller.ProductDetail">
+   <Page
+        title="{name}"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+    >
+        <content>
+            <HBox
+                class="sapUiMediumMargin"
+                justifyContent="SpaceBetween"
+                wrap="Wrap"
+            >
+                <!-- Imagen del Producto -->
+                <VBox
+                    class="sapUiSmallMarginEnd"
+                    width="40%"
+                >
+                    <Image
+                        src="{image}"
+                        width="100%"
+                        class="sapUiMediumMarginBottom"
+                    />
+                </VBox>
 
-  <Page 
-    id="productDetailPage">
-  </Page>
+                <!-- Detalles del Producto -->
+                <VBox
+                    width="55%"
+                    class="sapUiSmallMargin"
+                >
+                    <Text
+                        text="Figura coleccionable"
+                        class="sapUiSmallMarginBottom"
+                    />
+                    <Title
+                        text="{name}"
+                        level="H1"
+                    />
+
+                    <HBox alignItems="Center">
+                        <RatingIndicator
+                            value="{rating}"
+                            maxValue="5"
+                            iconSize="1.5rem"
+                        />
+                        <Text
+                            text="({rating})"
+                            class="sapUiTinyMarginBegin"
+                        />
+                    </HBox>
+
+                    <Text
+                        text="{= ${price} + ' ' + ${currency} }"
+                        class="sapUiSmallMarginTop sapUiSuccessText sapUiLargeFont"
+                    />
+                    <Text
+                        text="Stock: {stock}"
+                        class="sapUiSmallMarginTop"
+                    />
+
+                    <!-- Etiquetas -->
+                    <Text
+                        text="Etiquetas:"
+                        class="sapUiMediumMarginTop sapUiBold"
+                    />
+                    <HBox
+                        wrap="Wrap"
+                        items="{tags}"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <items>
+                            <ObjectStatus text="{tag}" class="sapUiTinyMarginEnd" />
+                        </items>
+                    </HBox>
+
+                    <!-- Descripción -->
+                    <Text
+                        text="Descripción:"
+                        class="sapUiMediumMarginTop sapUiBold"
+                    />
+                    <Text
+                        text="{description}"
+                        wrapping="true"
+                        class="sapUiSmallMarginBottom"
+                    />
+
+                    <!-- Detalles Técnicos -->
+                    <Text
+                        text="Especificaciones Técnicas:"
+                        class="sapUiMediumMarginTop sapUiBold"
+                    />
+                    <List>
+                        <StandardListItem title="Altura: {details/height}" />
+                        <StandardListItem title="Largo: {details/length}" />
+                        <StandardListItem title="Dimensiones: {details/dimensions}" />
+                        <StandardListItem title="Capacidad: {details/capacity}" />
+                        <StandardListItem title="Material: {details/material}" />
+                        <StandardListItem title="Fabricante: {details/manufacturer}" />
+                        <StandardListItem title="Peso: {details/weight}" />
+                        <StandardListItem title="Escala: {details/scale}" />
+                    </List>
+
+                    <!-- Variantes -->
+                    <Text
+                        text="Variantes disponibles:"
+                        class="sapUiMediumMarginTop sapUiBold"
+                    />
+                    <Table
+                        items="{variants}"
+                        inset="false"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <columns>
+                            <Column><Text text="Color" /></Column>
+                            <Column><Text text="Precio" /></Column>
+                            <Column><Text text="Stock" /></Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{color}" />
+                                    <Text text="{= ${price} + ' ' + ${currency} }" />
+                                    <Text text="{stock}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+
+                    <!-- Botones de acción -->
+                    <HBox
+                        justifyContent="SpaceBetween"
+                        class="sapUiMediumMarginTop"
+                    >
+                        <Button
+                            text="Comprar ahora"
+                            type="Emphasized"
+                            press=".onBuyNow"
+                            icon="sap-icon://cart"
+                        />
+                        <Button
+                            text="Agregar al carrito"
+                            type="Default"
+                            press=".onAddToCart"
+                            icon="sap-icon://add-shopping-cart"
+                        />
+                    </HBox>
+                </VBox>
+            </HBox>
+        </content>
+    </Page>
 </mvc:View>

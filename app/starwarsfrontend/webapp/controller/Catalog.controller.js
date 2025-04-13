@@ -80,7 +80,7 @@ sap.ui.define([
       this.getRouter().navTo("productView", {
         categoryId,
         subCategoryId,
-        productId
+        productId: "'" + productId + "'" 
       });
     },
 

@@ -9,18 +9,6 @@
         navButtonPress=".onNavBack"
     >
         <content>
-            <List
-                headerText="Tus favoritos"
-                items="{
-                    path: 'favorites>/'
-                }"
-            >
-                <StandardListItem
-                    title="{favorites>product/name}"
-                    description="{= 'Precio: $' + ${favorites>product/price} }"
-                    icon="{favorites>product/image}"
-                />
-            </List>
             <Text text="carrito"></Text>
             <List
                 id = "cartItemsList"
