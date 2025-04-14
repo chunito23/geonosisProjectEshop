@@ -1,28 +1,37 @@
 sap.ui.define([
     "./BaseController",
-    "sap/m/MessageBox"
-], function (BaseController,MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/core/Fragment"
+], function (BaseController, MessageBox,Fragment) {
     "use strict";
 
     return BaseController.extend("starwarsfrontend.controller.Master", {
         onInit: function () {
-            // Si querés capturar rutas, lo hacés acá (no necesario por ahora)
             this.oEventBus = sap.ui.getCore().getEventBus()
-            const oRouter = this.getOwnerComponent().getRouter();
-            oRouter.getRoute("start").attachPatternMatched(this._onRouteMatched, this);
-            
+            this.getView().setModel(this.getOwnerComponent().getModel("viewModel"), "viewModel");
         },
 
-        _onRouteMatched: function(){
-            sessionStorage.getItem("userID")
-        },
 
-        onSearchRequested: function(oEvent){
+
+        onSearchRequested: function (oEvent) {
             const sQuery = oEvent.getParameter("query")
 
-            this.oEventBus.publish("masterChanel","SearchRequest",{
-                searchQuery : sQuery
+            this.oEventBus.publish("masterChanel", "SearchRequest", {
+                searchQuery: sQuery
             })
+        },
+
+        onToggleMaster: function () {
+            console.log("entre")
+            //var oSplitApp = this.byId("splitApp"); // Si estás en App.controller
+            // o
+            var oSplitApp = this.getView().getParent().getParent(); // si estás en un controller hijo
+            console.log(oSplitApp)
+            if (oSplitApp.isMasterShown()) {
+                oSplitApp.hideMaster();
+            } else {
+                oSplitApp.showMaster();
+            }
         },
 
         onCategorySelect: function (oEvent) {
@@ -31,15 +40,17 @@ sap.ui.define([
             const catId = oCtx.getProperty("id");
 
             const oRouter = this.getRouter()
-            oRouter.navTo("CategoryFiltered",{categoryId:catId})
+            oRouter.navTo("CategoryFiltered", { categoryId: catId })
         },
 
-        onShowCatalog:function(){
+        onShowCatalog: function () {
             //pensar en cambiar por que me parece una tactica muy sucia para filtrar
-            this.oEventBus.publish("masterChanel","SearchRequest",{
-                searchQuery : ""
+            // ya me olvide para que lo usaba comprobar despues
+
+            this.oEventBus.publish("masterChanel", "SearchRequest", {
+                searchQuery: ""
             })
-          },
+        },
 
 
         onSubcategorySelect: function (oEvent) {
@@ -47,38 +58,55 @@ sap.ui.define([
             const oCtx = oItem.getBindingContext();
             const subcatId = oCtx.getProperty("id");
             const catId = oCtx.getProperty("category/id");
-            
+
             const oRouter = this.getRouter()
-            oRouter.navTo("SubcategoryFiltered",{categoryId:catId,subCategoryId:subcatId})
+            oRouter.navTo("SubcategoryFiltered", { categoryId: catId, subCategoryId: subcatId })
         },
 
-        onPressHistory: function(){
+        onPressHistory: function () {
             let oRouter = this.getOwnerComponent().getRouter()
             oRouter.navTo("PurchaseHistory")
         },
 
-        onPressFavorites: function(){
+        onPressFavorites: function () {
             let oRouter = this.getOwnerComponent().getRouter()
             oRouter.navTo("Favorite")
         },
 
-        onPressCart: function(){
+        onPressCart: function () {
             let oRouter = this.getOwnerComponent().getRouter()
             oRouter.navTo("Cart")
         },
 
-        onPressCatalog: function(){
+        onPressCatalog: function () {
             let oRouter = this.getOwnerComponent().getRouter()
             oRouter.navTo("CategoryList")
         },
 
-        onPressProfile: function(){
-            let oRouter = this.getOwnerComponent().getRouter()
-            oRouter.navTo("userProfile")
+        onPressProfile: function () {
+            //let oRouter = this.getOwnerComponent().getRouter()
+            //oRouter.navTo("userProfile")
+
+            var oView = this.getView(),
+            oButton = oView.byId("userBotton");
+
+            if (!this._oMenuFragment) {
+                this._oMenuFragment = Fragment.load({
+                    id: oView.getId(),
+                    name: "starwarsfrontend.view.fragment.UserMenu",
+                    controller: this
+                }).then(function (oMenu) {
+                    oMenu.openBy(oButton);
+                    this._oMenuFragment = oMenu;
+                    return this._oMenuFragment;
+                }.bind(this));
+            } else {
+                this._oMenuFragment.openBy(oButton);
+            }
 
         },
 
-        onLogOut: function(){
+        onLogOut: function () {
             sessionStorage.removeItem("userID")
             let oRouter = this.getOwnerComponent().getRouter()
             oRouter.navTo("start")

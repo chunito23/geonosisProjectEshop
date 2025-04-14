@@ -72,7 +72,7 @@
                             </HBox>
                             
                             <!-- Precio y botón de eliminar -->
-                            <HBox alignItems="End">
+                            <HBox alignItems="End" wrap="Wrap">
                                 <ObjectNumber
                                     number="{= (${cartItems>product/price} * ${cartItems>quantity}).toFixed(2) }"
                                     unit="USD"
@@ -99,19 +99,19 @@
                     <VBox class="sapUiSmallMargin">
                         <HBox justifyContent="SpaceBetween">
                             <Text text="Subtotal:" class="summaryLabel"/>
-                            <Text text="{cartModel>/subtotal} {cartModel>/currency}" class="summaryValue"/>
+                            <Text text="{PriceModel>/subtotal} {PriceModel>/currency}" class="summaryValue"/>
                         </HBox>
                         <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
                             <Text text="Impuestos:" class="summaryLabel"/>
-                            <Text text="{cartModel>/taxes} {cartModel>/currency}" class="summaryValue"/>
+                            <Text text="{PriceModel>/taxes} {PriceModel>/currency}" class="summaryValue"/>
                         </HBox>
                         <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
                             <Text text="Envío:" class="summaryLabel"/>
-                            <Text text="{cartModel>/shipping} {cartModel>/currency}" class="summaryValue"/>
+                            <Text text="{PriceModel>/shipping} {PriceModel>/currency}" class="summaryValue"/>
                         </HBox>
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginTop totalRow">
                             <Title text="Total:" level="H4" class="totalLabel"/>
-                            <Title text="{cartModel>/total} {cartModel>/currency}" level="H4" class="totalValue"/>
+                            <Title text="{PriceModel>/total} {PriceModel>/currency}" level="H4" class="totalValue"/>
                         </HBox>
                     </VBox>
                 </Panel>

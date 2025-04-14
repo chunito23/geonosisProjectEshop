@@ -19,17 +19,17 @@ sap.ui.define([
 
     onSearchRequested: function(sChannel, sEvent, oData) {
       var sQuery = oData.searchQuery;
-      var oTable = this.byId("productsContainer"); // Reemplaza por el ID de tu tabla
+      var oTable = this.byId("productsContainer");
       var oBinding = oTable.getBinding("items");
       
       if (sQuery && sQuery.length > 0) {
-          // Crea un filtro para buscar en el nombre del producto (ajusta según tu modelo)
+          
           var aFilters = [
               new Filter("name", FilterOperator.Contains, sQuery)
           ];
           oBinding.filter(aFilters);
       } else {
-          // Si no hay query, quita todos los filtros
+          
           oBinding.filter([]);
       }
       
@@ -88,10 +88,10 @@ sap.ui.define([
       const oContext = oEvent.getSource().getBindingContext();
       const productID = oContext.getProperty("id");
       const userID = sessionStorage.getItem("userID");
-    
-      // Depuración
-      console.log("Frontend - userID:", userID);
-      console.log("Frontend - productID:", productID);
+      if(!userID){
+        MessageToast.show("debe logearse para comprar")
+        return ;
+      }
     
       if (!userID || !productID) {
         MessageToast.show("Error: userID o productID no están definidos");
@@ -121,10 +121,12 @@ sap.ui.define([
       const oContext = oEvent.getSource().getBindingContext();
       const productID = oContext.getProperty("id");
       const userID = sessionStorage.getItem("userID");
+
+      if(!userID){
+        MessageToast.show("Debe logearse para agregar a favoritos")
+        return ;
+      }
     
-      // Depuración
-      console.log("Frontend - userID:", userID);
-      console.log("Frontend - productID:", productID);
     
       if (!userID || !productID) {
         MessageToast.show("Error: userID o productID no están definidos");
@@ -149,13 +151,5 @@ sap.ui.define([
         }
       });
     },
-
-    
-      
-    
-    onViewCart: function() {
-      // Navegar a la vista del carrito (definir esta ruta en manifest.json)
-      this.getRouter().navTo("Cart");
-    }
   });
 });

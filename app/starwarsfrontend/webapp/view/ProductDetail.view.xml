@@ -142,6 +142,11 @@
                             icon="sap-icon://cart"
                         />
                         <Button
+                            text="Agregar a favoritos"
+                            press=".onAddFavorite"
+                            icon="sap-icon://add-favorite"
+                        />
+                        <Button
                             text="Agregar al carrito"
                             type="Default"
                             press=".onAddToCart"

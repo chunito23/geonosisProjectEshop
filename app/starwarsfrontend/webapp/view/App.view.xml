@@ -1,6 +1,9 @@
-<mvc:View controllerName="starwarsfrontend.controller.App"
+<mvc:View
+    controllerName="starwarsfrontend.controller.App"
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
-    <SplitApp id="app"></SplitApp>
+    xmlns="sap.m"
+>
+    <SplitApp id="app" mode="PopoverMode">
+    </SplitApp>
 </mvc:View>

@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
     controllerName="starwarsfrontend.controller.Catalog"
 >
-    <Page title="Catálogo de Productos" showNavButton="true" navButtonPress="onNavBack">
+    <Page title="Catálogo de Productos">
         <content>
             <!-- Contenedor principal de productos -->
             <FlexBox
@@ -25,7 +25,7 @@
             >
                 <!-- Tarjeta de producto -->
                 <Panel
-                    width="280px"
+                    width="20rem"
                     class="sapUiSmallMargin productCard"
                     expandable="false"
                 >

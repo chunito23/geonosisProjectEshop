@@ -1,0 +1,9 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:core="sap.ui.core">
+	<Menu itemSelected="onMenuAction">
+		<MenuItem text="Go to UserProfile"/>
+		<MenuItem text="Log in"/>
+		<MenuItem text="Log out"/>
+	</Menu>
+</core:FragmentDefinition>

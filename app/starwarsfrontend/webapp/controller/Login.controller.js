@@ -1,10 +1,10 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller",
+  "./BaseController",
   "sap/m/MessageToast"
-], (Controller, MessageToast) => {
+], (BaseController, MessageToast) => {
   "use strict";
 
-  return Controller.extend("starwarsfrontend.controller.Login", {
+  return BaseController.extend("starwarsfrontend.controller.Login", {
     onInit: function () { //el onit solo anda al principio
       const oRouter = this.getRouter()
       oRouter.getRoute("start").attachPatternMatched(this._onCategoryRouteMatched, this);
@@ -12,6 +12,7 @@ sap.ui.define([
     },
 
     _onCategoryRouteMatched: function(){
+      // cada vez que llegas a la ruta login deslogearse
       sessionStorage.removeItem("userID")
     },
 
@@ -91,6 +92,10 @@ sap.ui.define([
           console.error(err);
         }
       });
+    },
+
+    onNavBack:function(){
+      
     }
 
 

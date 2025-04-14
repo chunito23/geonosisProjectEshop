@@ -13,8 +13,7 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             const userId = sessionStorage.getItem("userID")
-            //this._loadFavorites(userId);
-            this._cartItems(userId);
+            this._LoadCartItems(userId);
         },
 
         _calcularSubTotal:function(array){
@@ -26,7 +25,7 @@ sap.ui.define([
             return suma 
         },
 
-        _cartItems: function (userId) {
+        _LoadCartItems: function (userId) {
             const oModel = this.getOwnerComponent().getModel();
 
             oModel.callFunction("/getUserCart", {
@@ -35,24 +34,21 @@ sap.ui.define([
                     userId: userId
                 },
                 success: (oData) => {
-                    console.log("carrito recibidos:", oData.results);
+                    
 
-                    // Crear modelo JSON para la vista
+                    // Creo modelo JSON para la vista
 
                     const subTotal = this._calcularSubTotal(oData)
                     const impuestos = (subTotal * 0.21)
                     const precioFinal = (subTotal  + impuestos + 1000)
-                    const CartModel = new JSONModel({
+                    const PriceModel = new JSONModel({
                         currency : "USD",
                         subtotal : subTotal.toFixed(2),
                         taxes : impuestos.toFixed(2),
                         shipping : 1000,
                         total : precioFinal.toFixed(2)
                     })
-                    this.getView().setModel(CartModel, "cartModel");
-
-
-                    
+                    this.getView().setModel(PriceModel, "PriceModel");
                     const oCartItemsModel = new JSONModel(oData.results || []);
                     this.getView().setModel(oCartItemsModel, "cartItems");
 
@@ -66,7 +62,7 @@ sap.ui.define([
         },
 
         onContinueShopping: function(){
-            const oRouter = this.getOwnerComponent().getRouter();
+            const oRouter = this.getRouter();
             oRouter.navTo("CategoryList")
         },
 
@@ -74,14 +70,7 @@ sap.ui.define([
             const oContext = oEvent.getSource().getBindingContext("cartItems");
             const productId = oContext.getProperty("product").id;
             const userId = sessionStorage.getItem("userID");
-            const OlistaCart = this.byId("cartItemsList")
-            const OBinding =  OlistaCart.getBinding("items")
-
-            // Depuración
-            console.log(oContext)
-            console.log("Frontend - userID:", userId);
-            console.log("Frontend - productID:", productId);
-
+   
 
             if (!userId || !productId) {
                 MessageToast.show("Error: userID o productID no están definidos");
@@ -97,9 +86,8 @@ sap.ui.define([
                     productId: productId
                 },
                 success: (oData) => {
-                    console.log("Respuesta del backend:", oData);
                     MessageToast.show(oData.value || "eliminado");
-                    this._cartItems(userId)
+                    this._LoadCartItems(userId)
                 },
                 error: (err) => {
                     console.error("Error al eliminado:", err);
@@ -110,7 +98,7 @@ sap.ui.define([
 
         },
 
-        //hacer si me da el tiempo
+        //hacer si me da el tiempo navegar al productos desd el link
         onNavigateToProduct: function(){
 
         },
@@ -119,14 +107,6 @@ sap.ui.define([
             const oContext = oEvent.getSource().getBindingContext("cartItems");
             const productId = oContext.getProperty("product").id;
             const userId = sessionStorage.getItem("userID");
-            const OlistaCart = this.byId("cartItemsList")
-            const OBinding =  OlistaCart.getBinding("items")
-
-            // Depuración
-            console.log(oContext)
-            console.log("Frontend - userID:", userId);
-            console.log("Frontend - productID:", productId);
-
 
             if (!userId || !productId) {
                 MessageToast.show("Error: userID o productID no están definidos");
@@ -142,9 +122,8 @@ sap.ui.define([
                     productId: productId
                 },
                 success: (oData) => {
-                    console.log("Respuesta del backend:", oData);
                     MessageToast.show(oData.value || "eliminado");
-                    this._cartItems(userId)
+                    this._LoadCartItems(userId)
                 },
                 error: (err) => {
                     console.error("Error al eliminado:", err);
@@ -160,13 +139,9 @@ sap.ui.define([
 
         onIncreaseQuantity: function (oEvent) {
             const oContext = oEvent.getSource().getBindingContext("cartItems");
-            console.log(oContext)
             const productID = oContext.getProperty("product").id;
             const userID = sessionStorage.getItem("userID");
           
-            // Depuración
-            console.log("Frontend - userID:", userID);
-            console.log("Frontend - productID:", productID);
           
             if (!userID || !productID) {
               MessageToast.show("Error: userID o productID no están definidos");
@@ -182,9 +157,8 @@ sap.ui.define([
                 productId: productID 
               },
               success: (oData) => {
-                console.log("Respuesta del backend:", oData);
                 MessageToast.show(oData.value || "Producto añadido al carrito");
-                this._cartItems(userID)
+                this._LoadCartItems(userID)
               },
               error: (err) => {
                 console.error("Error al añadir al carrito:", err);

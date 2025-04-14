@@ -32,6 +32,7 @@ sap.ui.define([
       if (sPreviousHash !== undefined) {
         window.history.go(-1);
       } else {
+        
         this.getRouter().navTo("CategoryList", {}, true);
       }
     },
@@ -48,6 +49,7 @@ sap.ui.define([
       MessageBox.success(sText);
     },
 
+    //esta no creo usarla
     showConfirm: function (sText, fnCallback) {
       MessageBox.confirm(sText, {
         onClose: fnCallback

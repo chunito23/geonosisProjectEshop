@@ -25,7 +25,6 @@ sap.ui.define([
                     userId: userId
                 },
                 success: (oData) => {
-                    console.log("Favoritos recibidos:", JSON.stringify(oData.results, null, 2));
 
                     const oFavoritesModel = new JSONModel(oData.results || []);
                     this.getView().setModel(oFavoritesModel, "favorites");

@@ -7,50 +7,12 @@
     <Page title="Catálogo">
         <VBox class="sapUiMediumMargin">
             <!-- Barra de búsqueda -->
-            <SearchField
-                id="SearchBar"
-                search="onSearchRequested"
-                class="sapUiSmallMarginTop"
-            />
 
             <!-- Menú lateral de acceso rápido -->
 
             <!-- Lista de Categorías -->
-            <List
-                id="categoriesList"
-                headerText="Categorías"
-                items="{
-          path: '/Categories',
-          parameters: { expand: 'subcategories' }
-        }"
-                mode="SingleSelectMaster"
-                itemPress="onCategorySelect"
-                class="sapUiSmallMarginTop"
-            >
-                <StandardListItem
-                    type="Active"
-                    title="{name}"
-                />
-            </List>
 
             <!-- Lista de Subcategorías -->
-            <List
-                id="subcategoryList"
-                headerText="Subcategorías"
-                items="{
-          path: '/Subcategories',
-          parameters: { expand: 'category' }
-        }"
-                visible="true"
-                mode="SingleSelectMaster"
-                itemPress="onSubcategorySelect"
-                class="sapUiSmallMarginTop"
-            >
-                <StandardListItem
-                    type="Active"
-                    title="{name}"
-                />
-            </List>
 
             <VBox id="authContent2">
                 <FlexBox
@@ -66,6 +28,7 @@
                     >
                         <List>
                             <StandardListItem
+                                id="userBotton"
                                 title="Perfil"
                                 type="Active"
                                 press=".onPressProfile"
@@ -102,6 +65,53 @@
                                 press=".onLogOut"
                                 icon="sap-icon://employee"
                             />
+                            <CustomListItem visible="{viewModel>/mostrarSeccion}">
+                                <SearchField
+                                    id="SearchBar"
+                                    search="onSearchRequested"
+                                    class="sapUiSmallMarginTop"
+                                    
+                                />
+                            </CustomListItem>
+
+                            <CustomListItem>
+                                <List
+                                    id="categoriesList"
+                                    headerText="Categorías"
+                                    items="{
+                    path: '/Categories',
+                    parameters: { expand: 'subcategories' }
+                        }"
+                                    mode="SingleSelectMaster"
+                                    visible="{viewModel>/mostrarSeccion}"
+                                    itemPress="onCategorySelect"
+                                    class="sapUiSmallMarginTop"
+                                >
+                                    <StandardListItem
+                                        type="Active"
+                                        title="{name}"
+                                    />
+                                </List>
+                            </CustomListItem>
+                            <CustomListItem>
+                                <List
+                                    id="subcategoryList"
+                                    headerText="Subcategorías"
+                                    items="{
+                                        path: '/Subcategories',
+                                        parameters: { expand: 'category' }
+                                        }"
+                                    visible="{viewModel>/mostrarSeccion}"
+                                    mode="SingleSelectMaster"
+                                    itemPress="onSubcategorySelect"
+                                    class="sapUiSmallMarginTop"
+                                >
+                                    <StandardListItem
+                                        type="Active"
+                                        title="{name}"
+                                    />
+                                </List>
+                            </CustomListItem>
                         </List>
                     </Panel>
                 </FlexBox>
@@ -109,22 +119,3 @@
         </VBox>
     </Page>
 </mvc:View>
-<!-- <List
-            id="subcatList"
-            headerText="Test Expand"
-            items="{
-                path: '/Subcategories',
-                parameters: {
-                    expand: 'category'
-                }
-            }"
-        >
-            <items>
-                <StandardListItem
-                    type="Active"
-                    press="onItemPress"
-                    title="{name}"
-                    description="{category/name}"
-                />
-            </items>
-        </List> -->

@@ -7,6 +7,7 @@
         id="page"
         title="Bienvenido a la eShop"
         backgroundDesign="Solid"
+        
     >
         <content>
             <VBox 

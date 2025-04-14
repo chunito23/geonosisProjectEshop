@@ -5,7 +5,9 @@ sap.ui.define([
 
   return BaseController.extend("starwarsfrontend.controller.App", {
     onInit() {
+ 
+    },
 
-    }
+  
   });
 });
