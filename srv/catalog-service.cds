@@ -32,5 +32,6 @@ service CatalogService {
   action BuyOneItem(userId : UUID, productId : String) returns String;
   action getUserFavorites(userId : UUID)                returns array of FavItems;
   action getUserCart(userId : UUID)                returns array of CartItems;
+  action getUserPurchases(userId : UUID)                returns array of PurchasedItems;
   action decreaseToCartItem(userId : UUID, productId : String) returns String;
 }

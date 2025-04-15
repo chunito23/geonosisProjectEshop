@@ -269,7 +269,7 @@ module.exports = cds.service.impl(async function () {
         await INSERT.into(PurchasedItems).entries({
           id: generateUUID(),
           user_id: userId,
-          product_id: productoExistente,
+          product_id: productoExistente.id,
           quantity: 1,
           date: new Date() 
         });
@@ -368,5 +368,37 @@ module.exports = cds.service.impl(async function () {
     }
 
   })
+
+  this.on("getUserPurchases", async (req) => {
+    const { Users, PurchasedItems } = this.entities;
+    const { userId } = req.data;
+  
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+  
+    const itemsComprados = await cds.run(
+      SELECT.from(PurchasedItems)
+        .where({ user_id: userId })
+        .columns([
+          { ref: ['id'] },
+          { ref: ['quantity'] },
+          { ref: ['date'] },
+          {
+            ref: ['product'],
+            expand: [
+              { ref: ['id'] },
+              { ref: ['name'] },
+              { ref: ['image'] },
+              { ref: ['price'] }
+            ]
+          }
+        ])
+    );
+  
+    return itemsComprados || [];
+  });
+  
 
 })

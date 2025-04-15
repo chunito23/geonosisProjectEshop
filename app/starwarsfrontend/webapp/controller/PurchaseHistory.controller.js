@@ -13,14 +13,7 @@ sap.ui.define([
 
         _onRouteMatched: function () {
             const userId = sessionStorage.getItem("userID");
-
-            if (!userId) {
-                MessageToast.show("Por favor, inicia sesión para ver tu historial de compras");
-                this.getRouter().navTo("start");
-                return;
-            }
-
-            //this._loadPurchases(userId);
+            this._loadPurchases(userId);
         },
 
         _loadPurchases: function (userId) {

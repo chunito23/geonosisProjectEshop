@@ -99,7 +99,7 @@ sap.ui.define([
         },
 
         //hacer si me da el tiempo navegar al productos desd el link
-        onNavigateToProduct: function(){
+        onNavigateToProduct: function(oEvent){
 
         },
 

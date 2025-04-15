@@ -171,7 +171,7 @@
                         <Button
                             text="Comprar ahora"
                             type="Emphasized"
-                            press=".onBuyNow"
+                            press=".onComprarUno"
                             icon="sap-icon://credit-card"
                         />
                         <Button

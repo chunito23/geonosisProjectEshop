@@ -1,18 +1,82 @@
 <mvc:View
-    controllerName="starwarsfrontend.controller.User"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    controllerName="starwarsfrontend.controller.User"
 >
-    <Page
-        id="userPage"
-        title="Perfil de Usuario"
-        showNavButton="true"
-        navButtonPress="onNavBack"
-    >
+    <Page title="Perfil de Usuario">
         <content>
-            
-            <Text text="pagina de usuario {id}"></Text>
-            <Text text="pagina de usuario {name}"></Text>
+            <!-- Datos del usuario -->
+            <ObjectHeader
+                title="{name}"
+                number="{email}"
+                numberUnit="Email"
+                intro="Información del Usuario"
+                icon="sap-icon://employee"
+            />
+
+            <!-- Lista de Favoritos -->
+            <List
+                headerText="⭐ Favoritos"
+                items="{ path: 'favorites>/' }"
+                noDataText="No tienes productos favoritos"
+            >
+                <items>
+                    <ObjectListItem
+                        title="{favorites>product/name}"
+                        number="{= 'Precio: $' + ${favorites>product/price} }"
+                        icon="{favorites>product/image}"
+                        iconDensityAware="false"
+                        intro="Producto Favorito"
+                    />
+                </items>
+            </List>
+
+            <!-- Lista del carrito (CART ITEMS) -->
+            <List
+                headerText="🛒 Carrito"
+                items="{ path: 'cartItems>/' }"
+                noDataText="No tienes productos en el carrito"
+            >
+                <items>
+                    <ObjectListItem
+                        title="{cartItems>product/name}"
+                        number="{= 'Precio: $' + ${cartItems>product/price} }"
+                        icon="{cartItems>product/image}"
+                        iconDensityAware="false"
+                        intro="Producto en el carrito"
+                    >
+                        <attributes>
+                            <ObjectAttribute
+                                text="{= 'Cantidad: ' + ${cartItems>quantity} }"
+                            />
+                        </attributes>
+                    </ObjectListItem>
+                </items>
+            </List>
+
+            <!-- Lista de compras (PURCHASES) -->
+            <List
+                headerText="🧾 Historial de Compras"
+                items="{ path: 'purchases>/' }"
+                noDataText="No tienes compras registradas"
+            >
+                <items>
+                    <ObjectListItem
+                        title="{purchases>product/name}"
+                        number="{= 'Precio: $' + ${purchases>product/price} }"
+                        icon="{purchases>product/image}"
+                        iconDensityAware="false"
+                        intro="{= 'Fecha: ' + ${purchases>date} }"
+                    >
+                        <attributes>
+                            <ObjectAttribute
+                                text="{= 'Cantidad: ' + ${purchases>quantity} }"
+                            />
+                        </attributes>
+                    </ObjectListItem>
+                </items>
+            </List>
         </content>
     </Page>
 </mvc:View>

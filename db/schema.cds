@@ -97,5 +97,5 @@ entity PurchasedItem {
       user     : Association to one User;
       product  : Association to one Products;
       quantity : Integer;
-      data     : DateTime;
+      date     : DateTime;
 }

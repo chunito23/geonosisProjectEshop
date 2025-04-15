@@ -145,7 +145,7 @@
                     <Text text="Explora nuestras recomendaciones:" class="sapUiTinyMarginBottom"/>
                     <Button 
                         text="Ver productos recomendados" 
-                        press=".onViewRecommendations"
+                        press=".onContinueShopping"
                         type="Emphasized"
                         icon="sap-icon://product"
                         class="sapUiSmallMarginBottom recommendationsButton"

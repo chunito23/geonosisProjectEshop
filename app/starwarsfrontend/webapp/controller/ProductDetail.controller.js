@@ -21,7 +21,8 @@ sap.ui.define([
       });
     },
 
-    onBuyNow: function (oEvent) {
+    onComprarUno: function (oEvent) {
+      console.log("hola")
       const octx = oEvent.getSource().getBindingContext()
       const productId = octx.getProperty("id")
       const userId = sessionStorage.getItem("userID");
@@ -37,11 +38,14 @@ sap.ui.define([
         method: "POST",
         urlParameters: {
           userId: userId,
-          productId : productId
+          productId: productId
         },
         success: (oData) => {
-          MessageToast.show(oData.value || "items comprados");
-          this._LoadCartItems(userId)
+          const oBinding = this.getView().getElementBinding();
+          if (oBinding) {
+            oBinding.refresh(true); // 'true' para forzar el reload desde el backend
+          }
+          MessageToast.show(oData.value || "item comprados");
         },
         error: (err) => {
           console.error("Error al comprar:", err);
