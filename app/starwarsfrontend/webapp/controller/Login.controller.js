@@ -25,9 +25,6 @@ sap.ui.define([
       const email = this.byId("emailInput").getValue();
       const password = this.byId("passwordInput").getValue();
       const name = this.byId("nameInput").getValue();
-      console.log("name desde front: ", email)
-      console.log("name desde front: ", password)
-      console.log("name desde front: ", name)
 
       const oModel = this.getOwnerComponent().getModel();
 
@@ -39,15 +36,8 @@ sap.ui.define([
             // Guardar el ID del usuario y navegación como en login
             const userID = data.register.userID;
 
-            const userModel = new sap.ui.model.json.JSONModel({
-              userID: userID,
-              isLoggedIn: true
-            });
-
+      
             sessionStorage.setItem("userID", userID);
-
-            this.getOwnerComponent().setModel(userModel, "userInfo");
-
             // Navegar a la página principal
             this.getRouter().navTo("CategoryList");
           } else {
@@ -74,14 +64,6 @@ sap.ui.define([
           if (data.login.success) {
             // Guardar el ID del usuario en el modelo local o en sessionStorage
             const userID = data.login.userID;
-
-            // Crear un modelo local para el usuario
-            const userModel = new sap.ui.model.json.JSONModel({
-              userID: userID,
-              isLoggedIn: true
-            });
-
-            this.getOwnerComponent().setModel(userModel, "userInfo");
 
             sessionStorage.setItem("userID", userID);
 

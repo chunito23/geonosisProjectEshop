@@ -4,7 +4,7 @@
     xmlns:core="sap.ui.core"
     controllerName="starwarsfrontend.controller.User"
 >
-    <Page title="Perfil de Usuario">
+    <Page title="Perfil de Usuario" showNavButton="true" navButtonPress="onNavBack">
         <content>
             <!-- Datos del usuario -->
             <ObjectHeader
@@ -27,10 +27,17 @@
                     <ObjectListItem
                         title="{favorites>product/name}"
                         number="{= 'Precio: $' + ${favorites>product/price} }"
+                        
                         icon="{favorites>product/image}"
                         iconDensityAware="false"
                         intro="Producto Favorito"
-                    />
+                    >
+                    <attributes>
+                            <ObjectAttribute
+                                text="{favorites>product/description}"
+                            />
+                        </attributes>
+                    </ObjectListItem>
                 </items>
             </List>
 

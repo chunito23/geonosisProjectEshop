@@ -2,7 +2,7 @@ const cds = require('@sap/cds')
 
 module.exports = cds.service.impl(async function () {
   //imprimir las entidades disponibles
-  console.log("Entidades disponibles:", Object.keys(this.entities));
+  //console.log("Entidades disponibles:", Object.keys(this.entities));
 
   //genera ids
   function generateUUID() {
@@ -130,7 +130,8 @@ module.exports = cds.service.impl(async function () {
               { ref: ['id'] },
               { ref: ['name'] },
               { ref: ['image'] },
-              { ref: ['price'] }
+              { ref: ['price'] },
+              { ref: ['description'] },
             ]
           }
         ])
@@ -214,7 +215,8 @@ module.exports = cds.service.impl(async function () {
               { ref: ['name'] },
               { ref: ['image'] },
               { ref: ['price'] },
-              { ref: ['stock'] }
+              { ref: ['stock'] },
+              { ref: ['description'] }
             ]
           }
         ])

@@ -27,7 +27,11 @@ sap.ui.define([
             this.setModel(oViewModel, "viewModel");
 
 
-           
+           //los siguiente codigos hacen 2 cosas
+           //sobreescribir nav to para evitar un efecto visual horrible
+           //proteger las rutas hacindo multiples comprobaciones de si es una ruta permitida
+
+
             //sobreescribo el navto por que me da problemas para restringir rutas
             //esto deberia hacerlo desde el back enrealidad
             this._overrideNavTo(oRouter);
@@ -47,20 +51,19 @@ sap.ui.define([
 
            
             const bMostrar = (sRouteName === "CategoryList"   || sRouteName === "CategoryFiltered" || sRouteName === "SubcategoryFiltered");
-            console.log(bMostrar)
             oViewModel.setProperty("/mostrarSeccion", bMostrar);
         },
 
         _overrideNavTo: function (oRouter) {
-            // Guardar referencia al método original navTo
+            // Guardo referencia al método original navTo
             var fnOriginalNavTo = oRouter.navTo;
             var that = this;
 
-            // Sobrescribir el método navTo
+            // Sobrescribo el método navTo
             oRouter.navTo = function (sRouteName, oParameters, bReplace) {
                 Log.info("Navegando a ruta: " + sRouteName);
 
-                // Si es ruta protegida, verificar autenticación
+                // Si es ruta protegida, verifico 
                 if (!that._isPublicRoute(sRouteName)) {
                     var userId = sessionStorage.getItem("userID");
 

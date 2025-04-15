@@ -94,9 +94,7 @@ sap.ui.define([
                     productId: ProductId
                 },
                 success: (oData) => {
-                    console.log(oData);
                     MessageToast.show("Producto eliminado de favoritos");
-                    // Refresh the favorites list
                     this._loadFavorites(userId);
                 },
                 error: (err) => {

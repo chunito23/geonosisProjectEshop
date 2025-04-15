@@ -107,7 +107,7 @@ sap.ui.define([
           productId: productID 
         },
         success: (oData) => {
-          console.log("Respuesta del backend:", oData);
+
           MessageToast.show(oData.value || "Producto añadido al carrito");
         },
         error: (err) => {
@@ -142,7 +142,6 @@ sap.ui.define([
           productId: productID 
         },
         success: (oData) => {
-          console.log("Respuesta del backend:", oData);
           MessageToast.show(oData.value || "Producto añadido a favoritos");
         },
         error: (err) => {
