@@ -4,16 +4,8 @@
     xmlns="sap.m"
     displayBlock="true"
 >
-    <Page title="Master menu">
+    <Page title="{i18n>masterPageTitle}">
         <VBox class="sapUiMediumMargin">
-            <!-- Barra de búsqueda -->
-
-            <!-- Menú lateral de acceso rápido -->
-
-            <!-- Lista de Categorías -->
-
-            <!-- Lista de Subcategorías -->
-
             <VBox id="authContent2">
                 <FlexBox
                     direction="Column"
@@ -22,45 +14,44 @@
                     class="sapUiSmallMarginEnd"
                 >
                     <Panel
-                        headerText="Menú de acceso rápido"
+                        headerText="{i18n>quickAccessMenu}"
                         expandable="false"
                         class="sapUiTinyMargin"
                     >
                         <List>
                             <StandardListItem
                                 id="userBotton"
-                                title="Perfil"
+                                title="{i18n>profile}"
                                 type="Active"
                                 press=".onPressProfile"
                                 icon="sap-icon://employee"
                             />
-
                             <StandardListItem
-                                title="Catálogo"
+                                title="{i18n>catalog}"
                                 type="Active"
                                 press=".onPressCatalog"
                                 icon="sap-icon://contacts"
                             />
                             <StandardListItem
-                                title="Carrito"
+                                title="{i18n>cart}"
                                 type="Active"
                                 press=".onPressCart"
                                 icon="sap-icon://cart"
                             />
                             <StandardListItem
-                                title="Favoritos"
+                                title="{i18n>favorites}"
                                 type="Active"
                                 press=".onPressFavorites"
                                 icon="sap-icon://favorite"
                             />
                             <StandardListItem
-                                title="Historial"
+                                title="{i18n>history}"
                                 type="Active"
                                 press=".onPressHistory"
                                 icon="sap-icon://history"
                             />
                             <StandardListItem
-                                title="Log out"
+                                title="{i18n>logout}"
                                 type="Active"
                                 press=".onLogOut"
                                 icon="sap-icon://log"
@@ -70,18 +61,16 @@
                                     id="SearchBar"
                                     search="onSearchRequested"
                                     class="sapUiSmallMarginTop"
-                                    
                                 />
                             </CustomListItem>
-
                             <CustomListItem>
                                 <List
                                     id="categoriesList"
-                                    headerText="Categorías"
+                                    headerText="{i18n>categories}"
                                     items="{
-                    path: '/Categories',
-                    parameters: { expand: 'subcategories' }
-                        }"
+                                        path: '/Categories',
+                                        parameters: { expand: 'subcategories' }
+                                    }"
                                     mode="SingleSelectMaster"
                                     visible="{viewModel>/mostrarSeccion}"
                                     itemPress="onCategorySelect"
@@ -96,11 +85,11 @@
                             <CustomListItem>
                                 <List
                                     id="subcategoryList"
-                                    headerText="Subcategorías"
+                                    headerText="{i18n>subcategories}"
                                     items="{
                                         path: '/Subcategories',
                                         parameters: { expand: 'category' }
-                                        }"
+                                    }"
                                     visible="{viewModel>/mostrarSeccion}"
                                     mode="SingleSelectMaster"
                                     itemPress="onSubcategorySelect"

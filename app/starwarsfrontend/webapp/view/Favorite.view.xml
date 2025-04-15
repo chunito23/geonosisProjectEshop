@@ -4,20 +4,23 @@
     xmlns="sap.m"
     displayBlock="true">
     <Page
-        title="Mis Favoritos"
+        title="{i18n>cartPageTitle}"
         showNavButton="true"
         navButtonPress=".onNavBack">
         <content>
             <List
-                headerText="Tus Productos Favoritos"
+                headerText="{i18n>cartNoData}"
                 items="{ path: 'favorites>/' }"
-                noDataText="No tienes productos favoritos">
+                noDataText="{i18n>cartNoData}"
+                mode="Delete"
+                delete=".onDeleteFavorite">
                 <items>
                     <StandardListItem
                         title="{favorites>product/name}"
-                        description="{= 'Precio: $' + ${favorites>product/price} }"
+                        description="{= '{i18n>cartProductId} ' + ${favorites>product/price} }"
                         icon="{favorites>product/image}"
                         iconDensityAware="false" />
+                        
                 </items>
             </List>
         </content>

@@ -1,150 +1,129 @@
 <mvc:View
+    controllerName="starwarsfrontend.controller.Catalog"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
-    controllerName="starwarsfrontend.controller.Catalog"
 >
-    <Page title="Catálogo de Productos">
+    <Page title="{i18n>catalogPageTitle}">
         <content>
-            <!-- Contenedor principal de productos -->
             <FlexBox
                 id="productsContainer"
                 wrap="Wrap"
                 class="sapUiTinyMargin"
-                items="{
-                  path: '/Products',
-                  parameters: {
-                    expand: 'subcategory,subcategory/category'
-                  },
-                  sorter: {
-                    path: 'subcategory/category/name',
-                    descending: false
-                  }
-                }"
+                items="{ path: '/Products', parameters: { expand: 'subcategory,subcategory/category' }, sorter: { path: 'subcategory/category/name', descending: false } }"
             >
-                <!-- Tarjeta de producto -->
-                <Panel
-                    width="20rem"
-                    class="sapUiSmallMargin productCard"
-                    expandable="false"
-                >
-                    <!-- Cabecera personalizada -->
-                    <headerToolbar>
-                        <Toolbar
-                            class="productHeader"
-                            height="auto"
-                            press="onProductCardPress"
-                        >
-                            <HBox
-                                width="100%"
-                                alignItems="Center"
-                                justifyContent="SpaceBetween"
+                <CustomListItem type="Active" press=".onProductCardPress" class="sapUiSmallMargin productCard">
+                    <!-- Tarjeta de producto -->
+                    <Panel
+                        width="20rem"
+                        class="productPanel"
+                        expandable="false"
+                        backgroundDesign="Transparent"
+                    >
+                        <headerToolbar>
+                            <Toolbar
+                                class="productHeader"
+                                height="auto"
                             >
-                                <HBox alignItems="Center">
-                                    <core:Icon
-                                        src="{= ${stock} > 0 ? 'sap-icon://product' : 'sap-icon://alert'}"
-                                        size="1.5rem"
-                                        color="{= ${stock} > 0 ? '#1873b4' : '#d32f2f'}"
-                                        class="productIcon"
+                                <HBox
+                                    width="100%"
+                                    alignItems="Center"
+                                    justifyContent="SpaceBetween"
+                                >
+                                    <HBox alignItems="Center">
+                                        <core:Icon
+                                            src="{= ${stock} > 0 ? 'sap-icon://product' : 'sap-icon://alert'}"
+                                            size="1.5rem"
+                                            color="{= ${stock} > 0 ? '#1873b4' : '#d32f2f'}"
+                                            class="productIcon"
+                                        />
+                                        <VBox class="sapUiTinyMarginBegin">
+                                            <Title
+                                                text="{name}"
+                                                level="H4"
+                                                wrapping="true"
+                                                class="productTitle"
+                                            />
+                                            <Text
+                                                text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : '{i18n>outOfStock}'}"
+                                                class="productSubtitle"
+                                            />
+                                        </VBox>
+                                    </HBox>
+                                    <RatingIndicator
+                                        value="{= ${stock} > 0 ? Math.min(Math.max(Math.floor(${stock}/20), 1), 5) : 0}"
+                                        editable="false"
+                                        visualMode="Half"
+                                        class="stockIndicator"
                                     />
-                                    <VBox class="sapUiTinyMarginBegin">
-                                        <Title
-                                            text="{name}"
-                                            level="H4"
-                                            wrapping="true"
-                                            class="productTitle"
-                                        />
-                                        <Text
-                                            text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : 'Agotado'}"
-                                            class="productSubtitle"
-                                        />
-                                    </VBox>
                                 </HBox>
-                                <RatingIndicator
-                                    value="{= ${stock} > 0 ? Math.min(Math.max(Math.floor(${stock}/20), 1), 5) : 0}"
-                                    editable="false"
-                                    visualMode="Half"
-                                    class="stockIndicator"
-                                />
-                            </HBox>
-                        </Toolbar>
-                    </headerToolbar>
-
-                    <content>
-                        <!-- Imagen del producto -->
-                        <VBox
-                            height="180px"
-                            class="productImageContainer"
-                        >
-                            <Image
-                                src="{image}"
-                                width="100%"
-                                densityAware="false"
-                                mode="Image"
-                                press="onProductCardPress"
-                                class="productImage"
-                            />
-                        </VBox>
-
-                        <!-- Detalles del producto -->
-                        <VBox class="sapUiSmallPadding productDetails">
-                            <HBox
-                                justifyContent="SpaceBetween"
-                                alignItems="Center"
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <VBox
+                                height="300px"
+                                class="productImageContainer"
                             >
-                                <ObjectNumber
-                                    number="{price}"
-                                    unit="{currency}"
-                                    class="productPrice"
+                                <Image
+                                    src="{image}"
+                                    width="100%"
+                                    densityAware="false"
+                                    mode="Image"
+                                    class="productImage"
                                 />
-
-                                <ObjectStatus
-                                    text="{= ${stock} > 0 ? 'Disponible' : 'Agotado'}"
-                                    state="{= ${stock} > 0 ? 'Success' : 'Error'}"
-                                />
-                            </HBox>
-
-                            <!-- Categoría y subcategoría -->
-                            <HBox class="sapUiTinyMarginTop">
+                            </VBox>
+                            <VBox class="sapUiSmallPadding productDetails">
+                                <HBox
+                                    justifyContent="SpaceBetween"
+                                    alignItems="Center"
+                                >
+                                    <ObjectNumber
+                                        number="{price}"
+                                        unit="{currency}"
+                                        class="productPrice"
+                                    />
+                                    <ObjectStatus
+                                        text="{= ${stock} > 0 ? '{i18n>available}' : '{i18n>outOfStock}'}"
+                                        state="{= ${stock} > 0 ? 'Success' : 'Error'}"
+                                    />
+                                </HBox>
+                                <HBox class="sapUiTinyMarginTop">
+                                    <Text
+                                        text="{subcategory/category/name} > {subcategory/name}"
+                                        class="categoryPath"
+                                    />
+                                </HBox>
                                 <Text
-                                    text="{subcategory/category/name} > {subcategory/name}"
-                                    class="categoryPath"
+                                    text="{description}"
+                                    maxLines="2"
+                                    class="sapUiTinyMarginTop productDescription"
                                 />
-                            </HBox>
-
-                            <!-- Descripción breve -->
-                            <Text
-                                text="{description}"
-                                maxLines="2"
-                                class="sapUiTinyMarginTop productDescription"
-                            />
-
-                            <!-- Botones de acción -->
-                            <HBox
-                                justifyContent="SpaceBetween"
-                                class="sapUiSmallMarginTop"
-                            >
-                                <Button
-                                    text="Añadir"
-                                    type="Default"
-                                    icon="sap-icon://cart-3"
-                                    enabled="{= ${stock} > 0}"
-                                    press="onAddToCart"
-                                    class="actionButton"
-                                />
-                                <Button
-                                    text="Favorito"
-                                    type="Emphasized"
-                                    icon="sap-icon://add-favorite"
-                                    enabled="{= ${stock} > 0}"
-                                    press="onAddFavorite"
-                                    class="actionButton"
-                                />
-                            </HBox>
-                        </VBox>
-                    </content>
-                </Panel>
+                                <HBox
+                                    justifyContent="SpaceBetween"
+                                    class="sapUiSmallMarginTop"
+                                >
+                                    <Button
+                                        text="add to cart"
+                                        type="Default"
+                                        icon="sap-icon://cart-3"
+                                        enabled="{= ${stock} > 0}"
+                                        press=".onAddToCart"
+                                        class="actionButton"
+                                    />
+                                    <Button
+                                        text="{i18n>addFavorite}"
+                                        type="Emphasized"
+                                        icon="sap-icon://add-favorite"
+                                        enabled="{= ${stock} > 0}"
+                                        press=".onAddFavorite"
+                                        class="actionButton"
+                                    />
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </Panel>
+                </CustomListItem>
             </FlexBox>
         </content>
     </Page>

@@ -86,7 +86,10 @@
         "viewType": "XML",
         "viewPath": "starwarsfrontend.view",
         "controlId": "app",
-        "async": true
+        "async": true,
+        "bypassed": {
+          "target" : "NotFound"
+        }
       },
       "routes": [
         {
@@ -172,6 +175,11 @@
           "viewId": "catalog",
           "controlAggregation": "detailPages",
           "viewLevel": 1
+        },
+        "NotFound" : {
+          "viewName": "NotFound",
+          "controlAggregation": "detailPages",
+          "viewLevel": 99
         },
         "productDetail": {
           "viewName": "ProductDetail",

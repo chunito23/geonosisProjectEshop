@@ -12,7 +12,6 @@ module.exports = cds.service.impl(async function () {
   this.on('register', async req => {
     const { Users, Carts } = this.entities
     const { email, password , name } = req.data
-    console.log("name desde back: ", name)
 
     const existe = await SELECT.one.from(Users).where({ email })
     if (existe) {
@@ -82,6 +81,35 @@ module.exports = cds.service.impl(async function () {
 
     return "insertado con éxito";
   });
+
+  this.on("DeleteFavorite", async (req) => {
+    const { Users, Products, FavItems } = this.entities;
+    const { userId, productId } = req.data;
+
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoExistente = await SELECT.one.from(Products).where({ id: productId });
+    if (!productoExistente) {
+      return req.error(404, `Producto con ID ${productId} no encontrado.`);
+    }
+
+    const favoritoExistente = await SELECT.one.from(FavItems).where({
+      product_id: productId,
+      user_id: userId
+    });
+
+    if (favoritoExistente) {
+      await DELETE.from(FavItems).where({
+        user_id : favoritoExistente.user_id,
+        product_id : favoritoExistente.product_id
+      })
+    }
+
+    return "eliminado con éxito";
+  })
 
   this.on('getUserFavorites', async (req) => {
     const { FavItems } = this.entities;
@@ -245,9 +273,7 @@ module.exports = cds.service.impl(async function () {
   this.on("BuyOneItem", async (req) => {
     const {Users, PurchasedItems, Products} = this.entities
     const {userId,productId} = req.data
-    console.log("userid: ",userId)
-    console.log("productId: ",productId)
-    
+
     // Verificar que el usuario existe
     const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
     if (!usuarioExistente) {

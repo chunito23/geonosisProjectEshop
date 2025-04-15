@@ -1,68 +1,18 @@
-<mvc:View
-    controllerName="starwarsfrontend.controller.Login"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
->
-    <Page
-        id="page"
-        title="Bienvenido a la eShop ingrese a su cuenta por favor"
-        backgroundDesign="Solid"
-    >
+<mvc:View controllerName="starwarsfrontend.controller.Login" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+    <Page id="page" title="{i18n>loginPageTitle}" backgroundDesign="Solid">
         <content>
-            <VBox
-                class="sapUiMediumMargin"
-                alignItems="Center"
-                height="35rem"
-                justifyContent="Center"
-            >
-                <Panel
-                    headerText="Login / Registro"
-                    class="sapUiResponsiveMargin"
-                    width="500px"
-                    expandable="false"
-                >
-                    <VBox
-                        class="sapUiContentPadding"
-                        alignItems="Stretch"
-                    >
-                        <Label text="Name (solo para registrarse)" />
-                        <Input
-                            id="nameInput"
-                            placeholder="name"
-                            type="Text"
-                            width="100%"
-                        />
-                        <Label text="Email" />
-                        <Input
-                            id="emailInput"
-                            placeholder="Email"
-                            type="Email"
-                            width="100%"
-                        />
-                        <Label text="Contraseña" />
-                        <Input
-                            id="passwordInput"
-                            placeholder="Contraseña"
-                            type="Password"
-                            width="100%"
-                            class="sapUiSmallMarginTop"
-                        />
-
-                        <HBox
-                            class="sapUiSmallMarginTop"
-                            justifyContent="SpaceAround"
-                        >
-                            <Button
-                                text="Iniciar Sesión"
-                                press=".onLogin"
-                                type="Emphasized"
-                                width="100%"
-                            />
-                            <Button
-                                text="Registrarse"
-                                press=".onRegister"
-                                width="100%"
-                            />
+            <VBox class="sapUiMediumMargin" alignItems="Center" height="35rem" justifyContent="Center">
+                <Panel headerText="{i18n>loginPanelTitle}" class="sapUiResponsiveMargin" width="500px" expandable="false">
+                    <VBox class="sapUiContentPadding" alignItems="Stretch">
+                        <Label text="{i18n>nameLabel}" />
+                        <Input id="nameInput" placeholder="{i18n>namePlaceholder}" type="Text" width="100%" />
+                        <Label text="{i18n>emailLabel}" />
+                        <Input id="emailInput" placeholder="{i18n>emailPlaceholder}" type="Email" width="100%" />
+                        <Label text="{i18n>passwordLabel}" />
+                        <Input id="passwordInput" placeholder="{i18n>passwordPlaceholder}" type="Password" width="100%" class="sapUiSmallMarginTop" />
+                        <HBox class="sapUiSmallMarginTop" justifyContent="SpaceAround">
+                            <Button text="{i18n>loginButton}" press=".onLogin" type="Emphasized" width="100%" />
+                            <Button text="{i18n>registerButton}" press=".onRegister" width="100%" />
                         </HBox>
                     </VBox>
                 </Panel>

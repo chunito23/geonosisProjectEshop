@@ -20,6 +20,8 @@
                 headerText="⭐ Favoritos"
                 items="{ path: 'favorites>/' }"
                 noDataText="No tienes productos favoritos"
+                mode="Delete"
+                delete=".onDeleteFavorite"
             >
                 <items>
                     <ObjectListItem
@@ -64,7 +66,7 @@
                 <items>
                     <ObjectListItem
                         title="{purchases>product/name}"
-                        number="{= 'Precio: $' + ${purchases>product/price} }"
+                        number="{= 'Total: $' + (${purchases>product/price} * ${purchases>quantity}).toFixed(2) }"
                         icon="{purchases>product/image}"
                         iconDensityAware="false"
                         intro="{= 'Fecha: ' + ${purchases>date} }"
@@ -72,6 +74,9 @@
                         <attributes>
                             <ObjectAttribute
                                 text="{= 'Cantidad: ' + ${purchases>quantity} }"
+                            />
+                            <ObjectAttribute
+                                text="{= 'precio unitario: $' + ${purchases>product/price} }"
                             />
                         </attributes>
                     </ObjectListItem>

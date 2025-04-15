@@ -77,6 +77,33 @@ sap.ui.define([
                     MessageToast.show("Error al cargar las compras");
                 }
             });
+        },
+
+        onDeleteFavorite: function (oEvent) {
+            const oItem = oEvent.getParameter("listItem"); // 
+            const oContext = oItem.getBindingContext("favorites");
+            const ProductId = oContext.getProperty("product/id");
+            const userId = sessionStorage.getItem("userID");
+
+            const oModel = this.getOwnerComponent().getModel();
+
+            oModel.callFunction("/DeleteFavorite", {
+                method: "POST",
+                urlParameters: {
+                    userId: userId,
+                    productId: ProductId
+                },
+                success: (oData) => {
+                    console.log(oData);
+                    MessageToast.show("Producto eliminado de favoritos");
+                    // Refresh the favorites list
+                    this._loadFavorites(userId);
+                },
+                error: (err) => {
+                    console.error("Error al eliminar favoritos:", err);
+                    MessageToast.show("Error al eliminar favoritos");
+                }
+            });
         }
     });
 });
