@@ -17,7 +17,7 @@
                 <items>
                     <StandardListItem
                         title="{favorites>product/name}"
-                        description="{= '{i18n>cartProductId} ' + ${favorites>product/price} }"
+                        description="{favorites>product/description}"
                         icon="{favorites>product/image}"
                         iconDensityAware="false" />
                         

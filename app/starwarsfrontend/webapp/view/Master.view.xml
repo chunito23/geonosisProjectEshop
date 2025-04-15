@@ -68,8 +68,7 @@
                                     id="categoriesList"
                                     headerText="{i18n>categories}"
                                     items="{
-                                        path: '/Categories',
-                                        parameters: { expand: 'subcategories' }
+                                        path: '/Categories'
                                     }"
                                     mode="SingleSelectMaster"
                                     visible="{viewModel>/mostrarSeccion}"
@@ -87,8 +86,7 @@
                                     id="subcategoryList"
                                     headerText="{i18n>subcategories}"
                                     items="{
-                                        path: '/Subcategories',
-                                        parameters: { expand: 'category' }
+                                        path: '/Subcategories'
                                     }"
                                     visible="{viewModel>/mostrarSeccion}"
                                     mode="SingleSelectMaster"

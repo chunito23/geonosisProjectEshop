@@ -26,8 +26,6 @@ sap.ui.define([
                     userId: userId
                 },
                 success: (oData) => {
-                    console.log("Compras recibidas:", JSON.stringify(oData.results, null, 2));
-
                     const oPurchasesModel = new JSONModel(oData.results || []);
                     this.getView().setModel(oPurchasesModel, "purchases");
 

@@ -45,7 +45,7 @@ sap.ui.define([
                         currency : "USD",
                         subtotal : subTotal.toFixed(2),
                         taxes : impuestos.toFixed(2),
-                        shipping : 1000,
+                        shipping : 100, 
                         total : precioFinal.toFixed(2)
                     })
                     this.getView().setModel(PriceModel, "PriceModel");
@@ -72,6 +72,8 @@ sap.ui.define([
             const userId = sessionStorage.getItem("userID");
    
 
+            // comprobacion irrelevante por que no dejo entrar si no estas registrado
+            //pensar en cambiar
             if (!userId || !productId) {
                 MessageToast.show("Error: userID o productID no están definidos");
                 return;

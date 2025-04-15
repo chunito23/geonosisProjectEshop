@@ -22,7 +22,6 @@ sap.ui.define([
     },
 
     onComprarUno: function (oEvent) {
-      console.log("hola")
       const octx = oEvent.getSource().getBindingContext()
       const productId = octx.getProperty("id")
       const userId = sessionStorage.getItem("userID");
@@ -78,7 +77,6 @@ sap.ui.define([
           productId: productID
         },
         success: (oData) => {
-          console.log("Respuesta del backend:", oData);
           MessageToast.show(oData.value || "Producto añadido al carrito");
         },
         error: (err) => {
@@ -113,7 +111,6 @@ sap.ui.define([
           productId: productID
         },
         success: (oData) => {
-          console.log("Respuesta del backend:", oData);
           MessageToast.show(oData.value || "Producto añadido a favoritos");
         },
         error: (err) => {

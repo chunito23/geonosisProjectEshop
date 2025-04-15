@@ -46,7 +46,7 @@
                                                 class="productTitle"
                                             />
                                             <Text
-                                                text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : '{i18n>outOfStock}'}"
+                                                text="{= ${stock} > 0 ? 'Stock: ' + ${stock} : 'Sin stock'}"
                                                 class="productSubtitle"
                                             />
                                         </VBox>
@@ -84,7 +84,7 @@
                                         class="productPrice"
                                     />
                                     <ObjectStatus
-                                        text="{= ${stock} > 0 ? '{i18n>available}' : '{i18n>outOfStock}'}"
+                                        text="{= ${stock} > 0 ? 'Disponible' : 'Sin Stock'}"
                                         state="{= ${stock} > 0 ? 'Success' : 'Error'}"
                                     />
                                 </HBox>

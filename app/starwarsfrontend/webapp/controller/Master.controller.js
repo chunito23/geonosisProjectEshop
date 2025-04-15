@@ -21,18 +21,6 @@ sap.ui.define([
             })
         },
 
-        onToggleMaster: function () {
-            console.log("entre")
-            //var oSplitApp = this.byId("splitApp"); // Si estás en App.controller
-            // o
-            var oSplitApp = this.getView().getParent().getParent(); // si estás en un controller hijo
-            console.log(oSplitApp)
-            if (oSplitApp.isMasterShown()) {
-                oSplitApp.hideMaster();
-            } else {
-                oSplitApp.showMaster();
-            }
-        },
 
         onCategorySelect: function (oEvent) {
             const oItem = oEvent.getParameter("listItem");

@@ -167,6 +167,7 @@
                     <HBox
                         justifyContent="SpaceBetween"
                         class="sapUiMediumMarginTop"
+                        wrap="Wrap"
                     >
                         <Button
                             text="Comprar ahora"
