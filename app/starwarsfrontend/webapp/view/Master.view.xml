@@ -4,7 +4,7 @@
     xmlns="sap.m"
     displayBlock="true"
 >
-    <Page title="Catálogo">
+    <Page title="Master menu">
         <VBox class="sapUiMediumMargin">
             <!-- Barra de búsqueda -->
 
@@ -60,10 +60,10 @@
                                 icon="sap-icon://history"
                             />
                             <StandardListItem
-                                title="deslogearte"
+                                title="Log out"
                                 type="Active"
                                 press=".onLogOut"
-                                icon="sap-icon://employee"
+                                icon="sap-icon://log"
                             />
                             <CustomListItem visible="{viewModel>/mostrarSeccion}">
                                 <SearchField

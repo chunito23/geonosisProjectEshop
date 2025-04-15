@@ -11,7 +11,8 @@
     >
         <content>
             
-            <Text text="pagina de usuario"></Text>
+            <Text text="pagina de usuario {id}"></Text>
+            <Text text="pagina de usuario {name}"></Text>
         </content>
     </Page>
 </mvc:View>

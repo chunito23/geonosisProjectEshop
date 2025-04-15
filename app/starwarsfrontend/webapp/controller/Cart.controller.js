@@ -134,7 +134,29 @@ sap.ui.define([
         },
 
         onCheckout: function(){
-            MessageToast.show("implementar despues")
+            const userId = sessionStorage.getItem("userID");
+
+            if (!userId) {
+                MessageToast.show("Error: userID ");
+                return;
+            }
+
+            const oModel = this.getOwnerComponent().getModel();
+
+            oModel.callFunction("/buyCart", {
+                method: "POST",
+                urlParameters: {
+                    userId: userId,
+                },
+                success: (oData) => {
+                    MessageToast.show(oData.value || "items comprados");
+                    this._LoadCartItems(userId)
+                },
+                error: (err) => {
+                    console.error("Error al comprar:", err);
+                    MessageToast.show("Error al comprar");
+                }
+            });
         },
 
         onIncreaseQuantity: function (oEvent) {

@@ -83,11 +83,13 @@ sap.ui.define([
             oRouter.navTo("CategoryList")
         },
 
-        onPressProfile: function () {
-            //let oRouter = this.getOwnerComponent().getRouter()
-            //oRouter.navTo("userProfile")
+        onPressUserProfile: function(){
+            let oRouter = this.getOwnerComponent().getRouter()
+            oRouter.navTo("userProfile")
+        },
 
-            var oView = this.getView(),
+        onPressProfile: function () {
+            const oView = this.getView(),
             oButton = oView.byId("userBotton");
 
             if (!this._oMenuFragment) {

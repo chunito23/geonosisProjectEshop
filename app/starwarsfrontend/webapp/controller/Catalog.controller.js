@@ -150,6 +150,6 @@ sap.ui.define([
           MessageToast.show("Error al añadir a favoritos");
         }
       });
-    },
+    }
   });
 });

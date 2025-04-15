@@ -5,12 +5,11 @@
 >
     <Page
         id="page"
-        title="Bienvenido a la eShop"
+        title="Bienvenido a la eShop ingrese a su cuenta por favor"
         backgroundDesign="Solid"
-        
     >
         <content>
-            <VBox 
+            <VBox
                 class="sapUiMediumMargin"
                 alignItems="Center"
                 height="35rem"
@@ -22,15 +21,25 @@
                     width="500px"
                     expandable="false"
                 >
-                    <VBox class="sapUiContentPadding" alignItems="Stretch">
-                        <Label text="Email"></Label>
+                    <VBox
+                        class="sapUiContentPadding"
+                        alignItems="Stretch"
+                    >
+                        <Label text="Name (solo para registrarse)" />
+                        <Input
+                            id="nameInput"
+                            placeholder="name"
+                            type="Text"
+                            width="100%"
+                        />
+                        <Label text="Email" />
                         <Input
                             id="emailInput"
                             placeholder="Email"
                             type="Email"
                             width="100%"
                         />
-                        <Label text="Contraseña"></Label>
+                        <Label text="Contraseña" />
                         <Input
                             id="passwordInput"
                             placeholder="Contraseña"
@@ -39,7 +48,10 @@
                             class="sapUiSmallMarginTop"
                         />
 
-                        <HBox class="sapUiSmallMarginTop" justifyContent="SpaceAround">
+                        <HBox
+                            class="sapUiSmallMarginTop"
+                            justifyContent="SpaceAround"
+                        >
                             <Button
                                 text="Iniciar Sesión"
                                 press=".onLogin"

@@ -19,7 +19,7 @@ service CatalogService {
     userID : UUID;
   };
 
-  action register(email : String, password : String)    returns {
+  action register(email : String, password : String , name : String)    returns {
     success : Boolean;
     userID : UUID;
   };
@@ -28,7 +28,8 @@ service CatalogService {
   action addToCartItem(userId : UUID, productId : String) returns String;
   action deleteToCartItem(userId : UUID, productId : String) returns String;
   action clearCart(userId : UUID);
-  action buyCart(userId : UUID);
+  action buyCart(userId : UUID) returns String;
+  action BuyOneItem(userId : UUID, productId : String) returns String;
   action getUserFavorites(userId : UUID)                returns array of FavItems;
   action getUserCart(userId : UUID)                returns array of CartItems;
   action decreaseToCartItem(userId : UUID, productId : String) returns String;

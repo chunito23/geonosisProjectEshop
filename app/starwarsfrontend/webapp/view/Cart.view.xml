@@ -44,8 +44,8 @@
                                         press=".onNavigateToProduct" 
                                         class="productName"
                                     />
-                                    <Text text="ID: {cartItems>product/id}" class="sapUiTinyMarginTop productId"/>
-                                    
+                                    <Text text="Id: {cartItems>product/id}" class="sapUiTinyMarginTop productId"/>
+                                    <Text text="Stock: {cartItems>product/stock}" class="sapUiTinyMarginTop productId"/>
                                     <!-- Controles de cantidad -->
                                     <HBox alignItems="Center" class="sapUiTinyMarginTop quantityControls">
                                         <Button 

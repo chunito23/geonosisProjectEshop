@@ -11,7 +11,8 @@ module.exports = cds.service.impl(async function () {
 
   this.on('register', async req => {
     const { Users, Carts } = this.entities
-    const { email, password } = req.data
+    const { email, password , name } = req.data
+    console.log("name desde back: ", name)
 
     const existe = await SELECT.one.from(Users).where({ email })
     if (existe) {
@@ -23,7 +24,8 @@ module.exports = cds.service.impl(async function () {
     await INSERT.into(Users).entries({
       id: userID,
       email,
-      password
+      password,
+      name
     })
 
     await INSERT.into(Carts).entries({
@@ -183,7 +185,8 @@ module.exports = cds.service.impl(async function () {
               { ref: ['id'] },
               { ref: ['name'] },
               { ref: ['image'] },
-              { ref: ['price'] }
+              { ref: ['price'] },
+              { ref: ['stock'] }
             ]
           }
         ])
@@ -238,6 +241,98 @@ module.exports = cds.service.impl(async function () {
     }
     return "ERROR AL ELIMIANR EORWOL"
   })
+
+  this.on("BuyOneItem", async (req) => {
+    const {Users, PurchasedItems, Products} = this.entities
+    const {userId,productId} = req.data
+    console.log("userid: ",userId)
+    console.log("productId: ",productId)
+    
+    // Verificar que el usuario existe
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+
+    const productoExistente = await SELECT.one.from(Products).where({ id: productId });
+    if (!productoExistente) {
+      return req.error(404, `Producto con ID ${userId} no encontrado.`);
+    }
+
+    if(productoExistente.stock === 0){
+      return req.error(404, `Producto con ID ${userId} se encuentra sin stock.`);
+    }else{
+      await UPDATE(Products)
+        .set({ stock: productoExistente.stock - 1 })
+        .where({ id: productoExistente.id });
+
+        await INSERT.into(PurchasedItems).entries({
+          id: generateUUID(),
+          user_id: userId,
+          product_id: productoExistente,
+          quantity: 1,
+          date: new Date() 
+        });
+    }
+
+    return  "Compra realizada con éxito"
+  });
+
+  this.on("buyCart", async (req) => {
+    const {Users, Carts, CartItems, PurchasedItems, Products} = this.entities
+    const {userId} = req.data
+    
+    // Verificar que el usuario existe
+    const usuarioExistente = await SELECT.one.from(Users).where({ id: userId });
+    if (!usuarioExistente) {
+      return req.error(404, `Usuario con ID ${userId} no encontrado.`);
+    }
+    
+    // Obtener el carrito del usuario
+    const carritoExistente = await SELECT.one.from(Carts).where({
+      user_id: userId
+    });
+    if (!carritoExistente) {
+      return req.error(404, `Carrito para el usuario con ID ${userId} no encontrado.`);
+    }
+    
+    // Obtener todos los items del carrito
+    const itemsCarrito = await SELECT.from(CartItems).where({ 
+      cart_id: carritoExistente.id 
+    });
+    
+    if (!itemsCarrito || itemsCarrito.length === 0) {
+      return req.error(400, "El carrito está vacío");
+    }
+    
+    // Para cada item en el carrito, crear un registro de compra
+    for (const item of itemsCarrito) {
+      // Verificar stock disponible
+      const producto = await SELECT.one.from(Products).where({ id: item.product_id });
+      if (!producto || producto.stock < item.quantity) {
+        return req.error(400, `Stock insuficiente para el producto ${producto ? producto.name : item.product_id}`);
+      }
+      
+      // Reducir el stock del producto
+      await UPDATE(Products)
+        .set({ stock: producto.stock - item.quantity })
+        .where({ id: item.product_id });
+      
+      // Registrar la compra
+      await INSERT.into(PurchasedItems).entries({
+        id: generateUUID(),
+        user_id: userId,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        date: new Date() 
+      });
+    }
+    
+    // Vaciar el carrito después de la compra
+    await DELETE.from(CartItems).where({ cart_id: carritoExistente.id });
+    
+    return  "Compra realizada con éxito"
+  });
 
   this.on("deleteToCartItem", async (req) => {
     const { Users, Products, Carts, CartItems } = this.entities

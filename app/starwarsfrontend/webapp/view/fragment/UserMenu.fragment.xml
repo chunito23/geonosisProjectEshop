@@ -2,8 +2,7 @@
 		xmlns="sap.m"
 		xmlns:core="sap.ui.core">
 	<Menu itemSelected="onMenuAction">
-		<MenuItem text="Go to UserProfile"/>
-		<MenuItem text="Log in"/>
-		<MenuItem text="Log out"/>
+		<MenuItem press= "onPressUserProfile" text="Go to UserProfile"/>
+		<MenuItem press= "onLogOut" text="Go to Log in"/>
 	</Menu>
 </core:FragmentDefinition>

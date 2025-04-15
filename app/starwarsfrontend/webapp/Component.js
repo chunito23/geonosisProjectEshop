@@ -15,41 +15,38 @@ sap.ui.define([
         },
 
         init: function () {
-            // Llamar al método init del padre
             UIComponent.prototype.init.apply(this, arguments);
-
-            // Inicializar modelos
             this.setModel(models.createDeviceModel(), "device");
-
-            // Obtener referencia al router
             var oRouter = this.getRouter();
             oRouter.attachRouteMatched(this._onAnyRouteMatched, this);
 
-            // Modelo para controlar visibilidad en views
+            // Modelo para controlar visibilidad en master menu
             const oViewModel = new sap.ui.model.json.JSONModel({
                 mostrarSeccion: false
             });
             this.setModel(oViewModel, "viewModel");
 
 
-            // Proteger todas las rutas usando varios métodos para garantizar cobertura completa
-
-            // 1. Sobrescribir navTo para navegación programática
+           
+            //sobreescribo el navto por que me da problemas para restringir rutas
+            //esto deberia hacerlo desde el back enrealidad
             this._overrideNavTo(oRouter);
 
-            // 2. Proteger rutas por URL con eventos del router
+            //protejo rutas
             this._setupRouteProtection(oRouter);
 
-            // Inicializar el router al final
+    
             oRouter.initialize();
         },
 
+        //esto es para que no se muestre las categorias y barra a menos que sea
+        //la pagina de cateorias
         _onAnyRouteMatched: function (oEvent) {
             const sRouteName = oEvent.getParameter("name");
             const oViewModel = this.getModel("viewModel");
 
-            // Mostrar la sección solo si la ruta es 'productDetail'
-            const bMostrar = (sRouteName === "CategoryList");
+           
+            const bMostrar = (sRouteName === "CategoryList" || sRouteName === "CategoryFiltered" || sRouteName === "SubcategoryFiltered");
             console.log(bMostrar)
             oViewModel.setProperty("/mostrarSeccion", bMostrar);
         },

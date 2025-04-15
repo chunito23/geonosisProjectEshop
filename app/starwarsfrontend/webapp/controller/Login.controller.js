@@ -24,12 +24,16 @@ sap.ui.define([
     onRegister: function () {
       const email = this.byId("emailInput").getValue();
       const password = this.byId("passwordInput").getValue();
+      const name = this.byId("nameInput").getValue();
+      console.log("name desde front: ", email)
+      console.log("name desde front: ", password)
+      console.log("name desde front: ", name)
 
       const oModel = this.getOwnerComponent().getModel();
 
       oModel.callFunction("/register", {
         method: "POST",
-        urlParameters: { email, password },
+        urlParameters: { email, password , name },
         success: (data) => {
           if (data.register.success) {
             // Guardar el ID del usuario y navegación como en login
@@ -93,10 +97,6 @@ sap.ui.define([
         }
       });
     },
-
-    onNavBack:function(){
-      
-    }
 
 
   });

@@ -87,13 +87,15 @@ entity CartItem {
 }
 
 entity FavItem {
-  key id       : UUID;
-      user     : Association to one User;
-      product  : Association to one Products;
+  key id      : UUID;
+      user    : Association to one User;
+      product : Association to one Products;
 }
 
 entity PurchasedItem {
   key id       : UUID;
       user     : Association to one User;
       product  : Association to one Products;
+      quantity : Integer;
+      data     : DateTime;
 }

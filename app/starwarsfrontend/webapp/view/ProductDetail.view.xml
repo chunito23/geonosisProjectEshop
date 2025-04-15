@@ -1,10 +1,10 @@
 <mvc:View
-  controllerName="starwarsfrontend.controller.ProductDetail"
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns="sap.m"
-  xmlns:core="sap.ui.core">
-
-   <Page
+    controllerName="starwarsfrontend.controller.ProductDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Page
         title="{name}"
         showNavButton="true"
         navButtonPress="onNavBack"
@@ -73,7 +73,10 @@
                         class="sapUiSmallMarginBottom"
                     >
                         <items>
-                            <ObjectStatus text="{tag}" class="sapUiTinyMarginEnd" />
+                            <ObjectStatus
+                                text="{tag}"
+                                class="sapUiTinyMarginEnd"
+                            />
                         </items>
                     </HBox>
 
@@ -94,14 +97,38 @@
                         class="sapUiMediumMarginTop sapUiBold"
                     />
                     <List>
-                        <StandardListItem title="Altura: {details/height}" />
-                        <StandardListItem title="Largo: {details/length}" />
-                        <StandardListItem title="Dimensiones: {details/dimensions}" />
-                        <StandardListItem title="Capacidad: {details/capacity}" />
-                        <StandardListItem title="Material: {details/material}" />
-                        <StandardListItem title="Fabricante: {details/manufacturer}" />
-                        <StandardListItem title="Peso: {details/weight}" />
-                        <StandardListItem title="Escala: {details/scale}" />
+                        <StandardListItem
+                            title="Altura: {details/height}"
+                            visible="{= !!${details/height}}"
+                        />
+                        <StandardListItem
+                            title="Largo: {details/length}"
+                            visible="{= !!${details/length}}"
+                        />
+                        <StandardListItem
+                            title="Dimensiones: {details/dimensions}"
+                            visible="{= !!${details/dimensions}}"
+                        />
+                        <StandardListItem
+                            title="Capacidad: {details/capacity}"
+                            visible="{= !!${details/capacity}}"
+                        />
+                        <StandardListItem
+                            title="Material: {details/material}"
+                            visible="{= !!${details/material}}"
+                        />
+                        <StandardListItem
+                            title="Fabricante: {details/manufacturer}"
+                            visible="{= !!${details/manufacturer}}"
+                        />
+                        <StandardListItem
+                            title="Peso: {details/weight}"
+                            visible="{= !!${details/weight}}"
+                        />
+                        <StandardListItem
+                            title="Escala: {details/scale}"
+                            visible="{= !!${details/scale}}"
+                        />
                     </List>
 
                     <!-- Variantes -->
@@ -115,15 +142,21 @@
                         class="sapUiSmallMarginBottom"
                     >
                         <columns>
-                            <Column><Text text="Color" /></Column>
-                            <Column><Text text="Precio" /></Column>
-                            <Column><Text text="Stock" /></Column>
+                            <Column>
+                                <Text text="Color" />
+                            </Column>
+                            <Column>
+                                <Text text="Precio" />
+                            </Column>
+                            <Column>
+                                <Text text="Stock" />
+                            </Column>
                         </columns>
                         <items>
                             <ColumnListItem>
                                 <cells>
                                     <Text text="{color}" />
-                                    <Text text="{= ${price} + ' ' + ${currency} }" />
+                                    <Text text="{= ${price} + ' USD' }" />
                                     <Text text="{stock}" />
                                 </cells>
                             </ColumnListItem>
@@ -139,7 +172,7 @@
                             text="Comprar ahora"
                             type="Emphasized"
                             press=".onBuyNow"
-                            icon="sap-icon://cart"
+                            icon="sap-icon://credit-card"
                         />
                         <Button
                             text="Agregar a favoritos"
@@ -150,7 +183,7 @@
                             text="Agregar al carrito"
                             type="Default"
                             press=".onAddToCart"
-                            icon="sap-icon://add-shopping-cart"
+                            icon="sap-icon://cart"
                         />
                     </HBox>
                 </VBox>
