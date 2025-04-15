@@ -1,13 +1,13 @@
 id,name,price,currency,description,image,stock,rating,subcategory_id
 prod1,Luke Skywalker,79.99,USD,Figura de acción detallada de Luke Skywalker con múltiples puntos de movilidad y accesorios intercambiables.,assets/images/luke.webp,25,4.5,personajes
 prod2,Leia Organa,79.99,USD,Figura de acción de Leia Organa con detalle en vestuario y accesorios característicos.,assets/images/leia.webp,30,4.7,personajes
-prod3,Darth Vader,99.99,USD,Figura imponente de Darth Vader con capa máscara articulada y espada de luz.,assets/images/darth_vader.png,20,4.8,villanos
-prod4,Kylo Ren,89.99,USD,Figura de acción de Kylo Ren con detalles en su casco y capa confeccionada con gran realismo.,assets/images/kylo_ren.png,15,4.3,villanos
-prod5,Sable de Luz de Luke Skywalker,199.99,USD,Réplica de sable de luz inspirada en el de Luke Skywalker ideal para exhibición o coleccionismo.,assets/images/sable_luke.png,10,4.6,sables-luz
-prod6,Sable de Luz de Darth Vader,209.99,USD,Réplica de sable de luz rojo emblemática en la figura de Darth Vader.,assets/images/sable_vader.png,8,4.7,sables-luz
-prod7,Poster de Batalla Espacial,29.99,USD,Poster de alta calidad con impresión de una épica batalla espacial en el universo Star Wars.,assets/images/poster_batalla.png,50,4.2,posters
-prod8,Poster de Iconos Star Wars,24.99,USD,Vibrante collage con los personajes más icónicos de la saga.,assets/images/poster_iconos.png,70,4.4,posters
-prod9,Taza de Star Wars,14.99,USD,Taza temática con diseños icónicos de Star Wars para los fans más apasionados.,assets/images/taza.png,100,4.0,accesorios-varios
-prod10,Llavero Imperial,9.99,USD,Llavero con el emblema del Imperio. Un accesorio pequeño pero lleno de identidad.,assets/images/llavero.png,150,4.3,accesorios-varios
-prod11,Modelo X-Wing,299.99,USD,Modelo a escala del icónico caza estelar X-Wing con detalles precisos y partes móviles.,assets/images/xwing.png,5,4.8,cazas
-prod12,Modelo Destructor Estelar,499.99,USD,Magnífico modelo a escala del Destructor Estelar con múltiples detalles ideal para los coleccionistas.,assets/images/destructor.png,3,4.9,imperiales
+prod3,Darth Vader,99.99,USD,Figura imponente de Darth Vader con capa máscara articulada y espada de luz.,assets/images/darkVaider.jpg,20,4.8,villanos
+prod4,Kylo Ren,89.99,USD,Figura de acción de Kylo Ren con detalles en su casco y capa confeccionada con gran realismo.,assets/images/kylo.jpg,15,4.3,villanos
+prod5,Sable de Luz de Luke Skywalker,199.99,USD,Réplica de sable de luz inspirada en el de Luke Skywalker ideal para exhibición o coleccionismo.,assets/images/sable2.webp,10,4.6,sables-luz
+prod6,Sable de Luz de Darth Vader,209.99,USD,Réplica de sable de luz rojo emblemática en la figura de Darth Vader.,assets/images/sable1.webp,8,4.7,sables-luz
+prod7,Poster de Batalla Espacial,29.99,USD,Poster de alta calidad con impresión de una épica batalla espacial en el universo Star Wars.,assets/images/poster2.jpg,50,4.2,posters
+prod8,Poster de Iconos Star Wars,24.99,USD,Vibrante collage con los personajes más icónicos de la saga.,assets/images/poster1.jpg,70,4.4,posters
+prod9,Taza de Star Wars,14.99,USD,Taza temática con diseños icónicos de Star Wars para los fans más apasionados.,assets/images/taza.webp,100,4.0,accesorios-varios
+prod10,Llavero Imperial,9.99,USD,Llavero con el emblema del Imperio. Un accesorio pequeño pero lleno de identidad.,assets/images/llavero.jpeg,150,4.3,accesorios-varios
+prod11,Modelo X-Wing,299.99,USD,Modelo a escala del icónico caza estelar X-Wing con detalles precisos y partes móviles.,assets/images/x-wing.webp,5,4.8,cazas
+prod12,Modelo Destructor Estelar,499.99,USD,Magnífico modelo a escala del Destructor Estelar con múltiples detalles ideal para los coleccionistas.,assets/images/destructor.webp,3,4.9,imperiales

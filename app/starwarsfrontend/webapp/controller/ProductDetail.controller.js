@@ -28,7 +28,7 @@ sap.ui.define([
       const userId = sessionStorage.getItem("userID");
 
       if (!userId) {
-        MessageToast.show("Error: userID ");
+        MessageToast.show("logeate");
         return;
       }
 

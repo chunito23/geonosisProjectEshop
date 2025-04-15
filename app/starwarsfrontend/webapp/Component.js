@@ -46,7 +46,7 @@ sap.ui.define([
             const oViewModel = this.getModel("viewModel");
 
            
-            const bMostrar = (sRouteName === "CategoryList" || sRouteName === "CategoryFiltered" || sRouteName === "SubcategoryFiltered");
+            const bMostrar = (sRouteName === "CategoryList"   || sRouteName === "CategoryFiltered" || sRouteName === "SubcategoryFiltered");
             console.log(bMostrar)
             oViewModel.setProperty("/mostrarSeccion", bMostrar);
         },
@@ -135,7 +135,7 @@ sap.ui.define([
 
         _isPublicRoute: function (sRouteName) {
             // Define aquí todas las rutas públicas que no requieren autenticación
-            var aPublicRoutes = ["start", "CategoryList"];
+            var aPublicRoutes = ["start", "CategoryList","SubcategoryFiltered","CategoryFiltered","productView"];
             return aPublicRoutes.indexOf(sRouteName) !== -1;
         }
     });
