@@ -13,7 +13,7 @@
             <VBox class="sapUiSmallMargin" alignItems="Center" justifyContent="Center">
                 <Image src="./assets/images/stormparo.webp" width="100%"></Image>
                 <Text
-                    text="🚫 Esta ruta no existe en esta galaxia..."
+                    text="🚫 Esta ruta no existe en esta galaxia busca en otro lugar..."
                     class="sapUiMediumMarginTop sapUiLargeText"
                 />
                 <Text
