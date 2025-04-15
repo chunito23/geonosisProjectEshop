@@ -56,7 +56,7 @@ sap.ui.define([
                 },
                 success: (oData) => {
                     MessageToast.show("Producto eliminado de favoritos");
-                    // Refresh the favorites list
+                    // recargar
                     this._loadFavorites(userId);
                 },
                 error: (err) => {
